@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sid's Algebra Midterm Exam</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .exam-container {
+            background: rgba(255, 255, 255, 0.98);
+            max-width: 900px;
+            margin: 20px;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            display: none;
+        }
+
+        .exam-header {
+            text-align: center;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .exam-title {
+            color: #333;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+            z-index: 1000;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            border: 2px solid #e0e6ed;
+        }
+
+        .section-title {
+            color: #333;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            padding: 10px 0;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .question {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #667eea;
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.05em;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .math {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin: 0 2px;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .option input[type="radio"] {
+            margin-right: 10px;
+            accent-color: #667eea;
+        }
+
+        .work-area {
+            margin-top: 15px;
+        }
+
+        .work-area textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            resize: vertical;
+            background: #fafbfc;
+        }
+
+        .work-area textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 40px auto;
+            padding: 18px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #e0e6ed;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .login-form input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .login-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .results {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            max-width: 800px;
+            margin: 20px;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .score-summary {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .score-large {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .review-section {
+            margin: 20px 0;
+        }
+
+        .review-question {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #ddd;
+        }
+
+        .correct {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+
+        .incorrect {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+
+        .error-message {
+            color: #dc3545;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .exam-container {
+                margin: 10px;
+                padding: 20px;
+            }
+            
+            .timer {
+                position: static;
+                margin-bottom: 20px;
+                display: inline-block;
+            }
+            
+            .options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginContainer" class="login-container">
+        <h2>🧠 Sid's Algebra Midterm Exam</h2>
+        <p>Enter password to begin exam</p>
+        <div class="login-form">
+            <input type="password" id="passwordInput" placeholder="Enter exam password">
+            <button class="login-btn" onclick="checkPassword()">Start Exam</button>
+            <div id="errorMessage" class="error-message"></div>
+        </div>
+    </div>
+
+    <!-- Exam Container -->
+    <div id="examContainer" class="exam-container">
+        <div class="timer" id="timer">60:00</div>
+        
+        <div class="exam-header">
+            <h1 class="exam-title">🧠 Sid's Midterm Exam – Algebra</h1>
+            <p><strong>Instructions:</strong> Questions 1–15: Multiple choice. Questions 16–25: Show your work and provide your final answer.</p>
+        </div>
+
+        <form id="examForm">
+            <!-- Multiple Choice Section -->
+            <div class="section">
+                <h2 class="section-title">🔢 Multiple Choice (1–15)</h2>
+                
+                <div class="question">
+                    <div class="question-number">1.</div>
+                    <div class="question-text">Evaluate: <span class="math">6 + 3 × (8 - 5)²</span></div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q1" value="A"> A) 15</label>
+                        <label class="option"><input type="radio" name="q1" value="B"> B) 33</label>
+                        <label class="option"><input type="radio" name="q1" value="C"> C) 21</label>
+                        <label class="option"><input type="radio" name="q1" value="D"> D) 27</label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">2.</div>
+                    <div class="question-text">Simplify: <span class="math">(12 ÷ 3)² - 4 × 2</span></div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q2" value="A"> A) 4</label>
+                        <label class="option"><input type="radio" name="q2" value="B"> B) 8</label>
+                        <label class="option"><input type="radio" name="q2" value="C"> C) 0</label>
+                        <label class="option"><input type="radio" name="q2" value="D"> D) 16</label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">3.</div>
+                    <div class="question-text">Solve: <span class="math">7x - 3 = 3x + 13</span></div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q3" value="A"> A) 4</label>
+                        <label class="option"><input type="radio" name="q3" value="B"> B) 3</label>
+                        <label class="option"><input type="radio" name="q3" value="C"> C) 5</label>
+                        <label class="option"><input type="radio" name="q3" value="D"> D) No Solution</label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">4.</div>
+                    <div class="question-text">Solve: <span class="math">5x + 2 = 5x + 7</span></div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q4" value="A"> A) x = 1</label>
+                        <label class="option"><input type="radio" name="q4" value="B"> B) x = -1</label>
+                        <label class="option"><input type="radio" name="q4" value="C"> C) No solution</label>
+                        <label class="option"><input type="radio" name="q4" value="D"> D) Infinitely many solutions</label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">5.</div>
+                    <div class="question-text">Combine: <span class="math">3a + 5 - 2a - 1</span></div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q5" value="A"> A) a + 4</label>
+                        <label class="option"><input type="radio" name="q5" value="B"> B) a + 6</label>
+                        <label class="option"><input type="radio" name="q5" value="C"> C) 5a + 4</label>
+                        <label class="option"><input type="radio" name="q5" value="D"> D) a + 5</label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">6.</div>
+                    <div class="question-text">Simplify: <span class="math">4x - 2(3 - x)</span></div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q6" value="A"> A) 6x - 6</label>
+                        <label class="option"><input type="radio" name="q6" value="B"> B) 2x - 6</label>
+                        <label class="option"><input type="radio" name="q6" value="C"> C) 4x + 6</label>
+                        <label class="option"><input type="radio" name="q6" value="D"> D) 6x + 6</label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">7.</div>
+                    <div class="question-text">Solve: <span class="math">(2x - 4)/3 = 4</span></div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q7" value="A"> A) 10</label>
+                        <label class="option"><input type="radio" name="q7" value="B"> B) 8</label>
+                        <label class="option"><input type="radio" name="q7" value="C"> C) 12</label>
+                        <label class="option"><input type="radio" name="q7" value="D"> D) 6</label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">8.</div>
+                    <div class="question-text">Which equation has no solution?</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q8" value="A"> A) 2x + 1 = 2x + 1</label>
+                        <label class="option"><input type="radio" name="q8" value="B"> B) x - 5 = x - 7</label>
+                        <label class="option"><input type="radio" name="q8" value="C"> C) 3x + 2 = 3x + 2</label>
+                        <label class="option"><input type="radio" name="q8" value="D"> D) 4x + 3 = 4x + 3</label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">9.</div>
+                    <div class="question-text">What is the result of: <span class="math">18 ÷ (2 + 4) × 3</span></div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q9" value="A"> A) 9</label>
+                        <label class="option"><input type="radio" name="q9" value="B"> B) 12</label>
+                        <label class="option"><input type="radio" name="q9" value="C"> C) 3</label>
+                        <label class="option"><input type="radio" name="q9" value="D"> D) 6</label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">10.</div>
+                    <div class="question-text">Solve: <span class="math">3x + 7 = 2x - 5</span></div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q10" value="A"> A) -12</label>
+                        <label class="option"><input type="radio" name="q10" value="B"> B) -2</label>
+                        <label class="option"><input type="radio" name="q10" value="C"> C) 2</label>
+                        <label class="option"><input type="radio" name="q10" value="D"> D) 12</label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">11.</div>
+                    <div class="question-text">Combine: <span class="math">5x + 3x - 2 + 4 - x</span></div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q11" value="A"> A) 7x + 2</label>
+                        <label class="option"><input type="radio" name="q11" value="B"> B) 8x + 6</label>
+                        <label class="option"><input type="radio" name="q11" value="C"> C) 7x + 6</label>
+                        <label class="option"><input type="radio" name="q11" value="D"> D) 6x + 2</label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">12.</div>
+                    <div class="question-text">Evaluate: <span class="math">10 - 3² + 2 × 4</span></div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q12" value="A"> A) 5</label>
+                        <label class="option"><input type="radio" name="q12" value="B"> B) 4</label>
+                        <label class="option"><input type="radio" name="q12" value="C"> C) 3</label>
+                        <label class="option"><input type="radio" name="q12" value="D"> D) 2</label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">13.</div>
+                    <div class="question-text">Solve: <span class="math">4(x - 1) = 2x + 6</span></div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q13" value="A"> A) x = 5</label>
+                        <label class="option"><input type="radio" name="q13" value="B"> B) x = 4</label>
+                        <label class="option"><input type="radio" name="q13" value="C"> C) x = 3</label>
+                        <label class="option"><input type="radio" name="q13" value="D"> D) x = 2</label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">14.</div>
+                    <div class="question-text">Which expression is equivalent to: <span class="math">2(x + 3) + 3(x - 1)</span>?</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q14" value="A"> A) 5x + 3</label>
+                        <label class="option"><input type="radio" name="q14" value="B"> B) 5x + 1</label>
+                        <label class="option"><input type="radio" name="q14" value="C"> C) 5x + 6</label>
+                        <label class="option"><input type="radio" name="q14" value="D"> D) 5x - 1</label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">15.</div>
+                    <div class="question-text">Solve: <span class="math">2(x + 1) = 2x + 3</span></div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q15" value="A"> A) x = 1</label>
+                        <label class="option"><input type="radio" name="q15" value="B"> B) No solution</label>
+                        <label class="option"><input type="radio" name="q15" value="C"> C) x = -1</label>
+                        <label class="option"><input type="radio" name="q15" value="D"> D) Infinitely many solutions</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Show Your Work Section -->
+            <div class="section">
+                <h2 class="section-title">✍️ Show Your Work (16–25)</h2>
+                
+                <div class="question">
+                    <div class="question-number">16.</div>
+                    <div class="question-text">Solve: <span class="math">3(2x + 4) = 36</span></div>
+                    <div class="work-area">
+                        <textarea name="q16" placeholder="Show your work here..."></textarea>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">17.</div>
+                    <div class="question-text">Solve: <span class="math">5(x - 2) + 3 = 28</span></div>
+                    <div class="work-area">
+                        <textarea name="q17" placeholder="Show your work here..."></textarea>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">18.</div>
+                    <div class="question-text">Solve: <span class="math">4x - 2 = 2x + 8</span></div>
+                    <div class="work-area">
+                        <textarea name="q18" placeholder="Show your work here..."></textarea>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">19.</div>
+                    <div class="question-text">Combine and solve: <span class="math">3x + 2x - 7 = 18</span></div>
+                    <div class="work-area">
+                        <textarea name="q19" placeholder="Show your work here..."></textarea>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">20.</div>
+                    <div class="question-text">Solve: <span class="math">3(2 + 4x) = 5x + 9</span></div>
+                    <div class="work-area">
+                        <textarea name="q20" placeholder="Show your work here..."></textarea>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">21.</div>
+                    <div class="question-text">Solve: <span class="math">2x + 3(x - 1) = 4x + 5</span></div>
+                    <div class="work-area">
+                        <textarea name="q21" placeholder="Show your work here..."></textarea>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">22.</div>
+                    <div class="question-text">Simplify: <span class="math">3x + 5 - (2x - 1)</span></div>
+                    <div class="work-area">
+                        <textarea name="q22" placeholder="Show your work here..."></textarea>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">23.</div>
+                    <div class="question-text">Solve: <span class="math">4(x + 3) = 4x + 12</span>. What kind of solution does it have?</div>
+                    <div class="work-area">
+                        <textarea name="q23" placeholder="Show your work here..."></textarea>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">24.</div>
+                    <div class="question-text">Combine like terms: <span class="math">7a + 2b - 3a + 5b - 6</span></div>
+                    <div class="work-area">
+                        <textarea name="q24" placeholder="Show your work here..."></textarea>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-number">25.</div>
+                    <div class="question-text">Solve: <span class="math">3(x - 2)/2 = x + 1</span></div>
+                    <div class="work-area">
+                        <textarea name="q25" placeholder="Show your work here..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="submit-btn" onclick="submitExam()">Submit Exam</button>
+        </form>
+    </div>
+
+    <!-- Results Container -->
+    <div id="resultsContainer" class="results">
+        <div class="score-summary">
+            <h2>🎯 Exam Results</h2>
+            <div class="score-large" id="finalScore">0/15</div>
+            <p>Multiple Choice Questions</p>
+            <div id="scorePercentage">0%</div>
+        </div>
+        
+        <div class="review-section">
+            <h3>📝 Multiple Choice Review</h3>
+            <div id="reviewContent"></div>
+        </div>
+        
+        <div class="review-section">
+            <h3>✍️ Show Your Work Responses</h3>
+            <p><em>These responses require manual grading by your instructor.</em></p>
+            <div id="workReview"></div>
+        </div>
+    </div>
+
+    <script>
+        // Exam password
+        const EXAM_PASSWORD = "algebra2024";
+        
+        // Answer key for multiple choice questions
+        const answerKey = {
+            q1: 'B', q2: 'B', q3: 'A', q4: 'C', q5: 'A',
+            q6: 'A', q7: 'B', q8: 'B', q9: 'A', q10: 'A',
+            q11: 'A', q12: 'A', q13: 'A', q14: 'A', q15: 'B'
+        };
+
+        // Question text for review
+        const questionTexts = [
+            "6 + 3 × (8 - 5)²",
+            "(12 ÷ 3)² - 4 × 2", 
+            "7x - 3 = 3x + 13",
+            "5x + 2 = 5x + 7",
+            "3a + 5 - 2a - 1",
+            "4x - 2(3 - x)",
+            "(2x - 4)/3 = 4",
+            "Which equation has no solution?",
+            "18 ÷ (2 + 4) × 3",
+            "3x + 7 = 2x - 5",
+            "5x + 3x - 2 + 4 - x",
+            "10 - 3² + 2 × 4",
+            "4(x - 1) = 2x + 6",
+            "2(x + 3) + 3(x - 1)",
+            "2(x + 1) = 2x + 3"
+        ];
+
+        // Timer variables
+        let timeLeft = 60 * 60; // 60 minutes in seconds
+        let timerInterval;
+
+        function checkPassword() {
+            const inputPassword = document.getElementById('passwordInput').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (inputPassword === EXAM_PASSWORD) {
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('examContainer').style.display = 'block';
+                startTimer();
+            } else {
+                errorMessage.textContent = 'Incorrect password. Please try again.';
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    alert('Time is up! Submitting exam automatically.');
+                    submitExam();
+                    return;
+                }
+                
+                timeLeft--;
+                updateTimerDisplay();
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const timerElement = document.getElementById('timer');
+            timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Change color when time is running low
+            if (timeLeft < 300) { // Less than 5 minutes
+                timerElement.style.background = 'linear-gradient(45deg, #ff4757, #ff3838)';
+                timerElement.style.animation = 'pulse 1s infinite';
+            }
+        }
+
+        function submitExam() {
+            clearInterval(timerInterval);
+            
+            // Get all form data
+            const formData = new FormData(document.getElementById('examForm'));
+            
+            // Calculate multiple choice score
+            let score = 0;
+            const totalQuestions = 15;
+            const reviewHTML = [];
+            
+            for (let i = 1; i <= totalQuestions; i++) {
+                const questionKey = `q${i}`;
+                const userAnswer = formData.get(questionKey);
+                const correctAnswer = answerKey[questionKey];
+                const isCorrect = userAnswer === correctAnswer;
+                
+                if (isCorrect) {
+                    score++;
+                }
+                
+                reviewHTML.push(`
+                    <div class="review-question ${isCorrect ? 'correct' : 'incorrect'}">
+                        <strong>Question ${i}:</strong> ${questionTexts[i-1]}<br>
+                        <strong>Your answer:</strong> ${userAnswer || 'No answer'}<br>
+                        <strong>Correct answer:</strong> ${correctAnswer}<br>
+                        <strong>Result:</strong> ${isCorrect ? '✅ Correct' : '❌ Incorrect'}
+                    </div>
+                `);
+            }
+            
+            // Get work responses
+            const workHTML = [];
+            for (let i = 16; i <= 25; i++) {
+                const questionKey = `q${i}`;
+                const userWork = formData.get(questionKey) || 'No response provided';
+                workHTML.push(`
+                    <div class="review-question">
+                        <strong>Question ${i}:</strong><br>
+                        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-top: 10px; white-space: pre-wrap; font-family: monospace;">${userWork}</div>
+                    </div>
+                `);
+            }
+            
+            // Display results
+            const percentage = Math.round((score / totalQuestions) * 100);
+            document.getElementById('finalScore').textContent = `${score}/${totalQuestions}`;
+            document.getElementById('scorePercentage').textContent = `${percentage}%`;
+            document.getElementById('reviewContent').innerHTML = reviewHTML.join('');
+            document.getElementById('workReview').innerHTML = workHTML.join('');
+            
+            // Hide exam, show results
+            document.getElementById('examContainer').style.display = 'none';
+            document.getElementById('resultsContainer').style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Allow Enter key to submit password
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        // Add pulse animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Prevent form submission on Enter (except in textareas)
+        document.getElementById('examForm').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+            }
+        });
+
+        // Auto-save functionality (optional - stores in memory only)
+        let autoSaveInterval;
+        function startAutoSave() {
+            autoSaveInterval = setInterval(() => {
+                const formData = new FormData(document.getElementById('examForm'));
+                // In a real application, you might want to save this data
+                console.log('Auto-saving exam progress...');
+            }, 30000); // Save every 30 seconds
+        }
+
+        // Start auto-save when exam begins
+        document.addEventListener('DOMContentLoaded', function() {
+            // Focus password input
+            document.getElementById('passwordInput').focus();
+        });
+
+        // Warning before leaving page
+        window.addEventListener('beforeunload', function(e) {
+            if (document.getElementById('examContainer').style.display !== 'none') {
+                e.preventDefault();
+                e.returnValue = '';
+                return 'Are you sure you want to leave? Your exam progress will be lost.';
+            }
+        });
+    </script>
+</body>
+</html>
