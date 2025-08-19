@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Bad Guys Save the Day for Nehemiah</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Fredoka:wght@300;400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .book-container {
+            width: 800px;
+            height: 600px;
+            perspective: 1000px;
+            position: relative;
+        }
+
+        .book {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            background: #8B4513;
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #fefefe;
+            border-radius: 4px;
+            padding: 40px;
+            display: none;
+            overflow-y: auto;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.15) 0%, transparent 50%);
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            font-size: 14px;
+            color: #666;
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        .cover {
+            background: linear-gradient(135deg, #FF6B6B, #4ECDC4);
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/><circle cx="20" cy="20" r="1" fill="white" opacity="0.2"/><circle cx="80" cy="30" r="1.5" fill="white" opacity="0.15"/></svg>');
+        }
+
+        .title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.8em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            z-index: 1;
+            line-height: 1.2;
+        }
+
+        .author {
+            font-size: 1.2em;
+            margin-top: 30px;
+            opacity: 0.9;
+            z-index: 1;
+        }
+
+        .chapter-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.2em;
+            color: #FF6B6B;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .story-text {
+            font-size: 1.3em;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .emoji {
+            font-size: 1.4em;
+            margin-right: 8px;
+        }
+
+        .dialogue {
+            font-style: italic;
+            color: #4A90E2;
+            margin: 15px 0;
+            padding-left: 20px;
+            border-left: 3px solid #FFE066;
+            background: rgba(255, 224, 102, 0.1);
+            padding: 10px 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            background: #FF6B6B;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:hover {
+            background: #FF5252;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .character-emoji {
+            display: inline-block;
+            animation: bounce 2s infinite;
+            margin: 0 5px;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .page-content {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .decorative-border {
+            border: 2px solid #FFE066;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            background: rgba(255, 224, 102, 0.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="book-container">
+        <div class="book">
+            <!-- Cover Page -->
+            <div class="page active cover">
+                <div class="page-content">
+                    <h1 class="title">The Bad Guys<br>Save the Day<br>for Nehemiah</h1>
+                    <div style="font-size: 4em; margin: 20px 0;">
+                        <span class="character-emoji">🐺</span>
+                        <span class="character-emoji">🐍</span>
+                        <span class="character-emoji">🦈</span>
+                        <span class="character-emoji">🐟</span>
+                    </div>
+                    <p class="author">A Heroic Adventure Story</p>
+                </div>
+            </div>
+
+            <!-- Chapter 1 -->
+            <div class="page">
+                <div class="page-content">
+                    <h2 class="chapter-title">Chapter 1: The Mission Begins</h2>
+                    <div class="decorative-border">
+                        <p class="story-text"><span class="emoji">🏠</span>The Bad Guys were sitting in their hideout, trying to decide what to do.</p>
+                        
+                        <div class="dialogue"><span class="emoji">🐺</span>Mr. Wolf leaned forward with a big grin and said, "Team, I have a new mission!"</div>
+                        
+                        <div class="dialogue"><span class="emoji">🐍</span>Mr. Snake groaned loudly, "Another one? This better not be silly."</div>
+                        
+                        <div class="dialogue"><span class="emoji">🦈</span>Mr. Shark clapped his fins and laughed, "I love silly plans!"</div>
+                        
+                        <p class="story-text"><span class="emoji">👦</span>Just then, a boy named Nehemiah knocked on their door.</p>
+                    </div>
+                </div>
+                <div class="page-number">1</div>
+            </div>
+
+            <!-- Chapter 2 -->
+            <div class="page">
+                <div class="page-content">
+                    <h2 class="chapter-title">Chapter 2: Nehemiah Asks for Help</h2>
+                    <div class="decorative-border">
+                        <p class="story-text"><span class="emoji">👦</span>Nehemiah looked a little worried but very brave.</p>
+                        
+                        <div class="dialogue"><span class="emoji">👦</span>"Bad Guys," he said, "my cat is stuck in a really tall tree."</div>
+                        
+                        <div class="dialogue"><span class="emoji">🐟</span>Mr. Piranha jumped up and shouted, "A mission! Let's do it!"</div>
+                        
+                        <div class="dialogue"><span class="emoji">🐍</span>Mr. Snake curled up and muttered, "Cats don't even like me."</div>
+                        
+                        <div class="dialogue"><span class="emoji">🐺</span>Mr. Wolf smiled at Nehemiah and said, "Don't worry, kid, we've got this."</div>
+                    </div>
+                </div>
+                <div class="page-number">2</div>
+            </div>
+
+            <!-- Chapter 3 -->
+            <div class="page">
+                <div class="page-content">
+                    <h2 class="chapter-title">Chapter 3: First Rescue Attempt</h2>
+                    <div class="decorative-border">
+                        <p class="story-text"><span class="emoji">🌳</span>The team followed Nehemiah to the big tree in the park.</p>
+                        
+                        <p class="story-text"><span class="emoji">🐱</span>The cat was way, way up at the very top, meowing loudly.</p>
+                        
+                        <p class="story-text"><span class="emoji">🦈</span>Mr. Shark tried to dress up as a tree to make the cat come down.</p>
+                        
+                        <p class="story-text"><span class="emoji">😐</span>The cat just blinked at him and stayed high in the branches.</p>
+                        
+                        <div class="dialogue"><span class="emoji">👦</span>Nehemiah laughed and said, "Nice try, Mr. Shark!"</div>
+                    </div>
+                </div>
+                <div class="page-number">3</div>
+            </div>
+
+            <!-- Chapter 4 -->
+            <div class="page">
+                <div class="page-content">
+                    <h2 class="chapter-title">Chapter 4: More Rescue Attempts</h2>
+                    <div class="decorative-border">
+                        <p class="story-text"><span class="emoji">🐟</span>Mr. Piranha ran straight up the tree trunk as fast as he could.</p>
+                        
+                        <div class="dialogue"><span class="emoji">🐟</span>"Almost there!" he shouted, but the cat climbed even higher.</div>
+                        
+                        <p class="story-text"><span class="emoji">🐍</span>Mr. Snake tried to wrap around the tree to reach the cat.</p>
+                        
+                        <div class="dialogue"><span class="emoji">🐍</span>But he slid down with a hiss and said, "I told you this was hard."</div>
+                        
+                        <div class="dialogue"><span class="emoji">👦</span>Nehemiah cheered them on, "You can do it, Bad Guys!"</div>
+                    </div>
+                </div>
+                <div class="page-number">4</div>
+            </div>
+
+            <!-- Chapter 5 -->
+            <div class="page">
+                <div class="page-content">
+                    <h2 class="chapter-title">Chapter 5: Mr. Wolf Saves the Day</h2>
+                    <div class="decorative-border">
+                        <div class="dialogue"><span class="emoji">🐺</span>Mr. Wolf took a deep breath and said, "This is my turn."</div>
+                        
+                        <p class="story-text"><span class="emoji">🐺</span>He climbed the tree slowly and carefully so the cat would not get scared.</p>
+                        
+                        <div class="dialogue"><span class="emoji">🐺</span>"Come here, kitty, it's okay," he whispered in a kind voice.</div>
+                        
+                        <p class="story-text"><span class="emoji">🐱</span>The cat looked at Mr. Wolf, then jumped safely into his arms.</p>
+                        
+                        <div class="dialogue"><span class="emoji">👦</span>Nehemiah clapped his hands and shouted, "You did it!"</div>
+                    </div>
+                </div>
+                <div class="page-number">5</div>
+            </div>
+
+            <!-- Chapter 6 -->
+            <div class="page">
+                <div class="page-content">
+                    <h2 class="chapter-title">Chapter 6: A Happy Ending</h2>
+                    <div class="decorative-border">
+                        <p class="story-text"><span class="emoji">😊</span>The Bad Guys and Nehemiah walked back together, smiling the whole way.</p>
+                        
+                        <p class="story-text"><span class="emoji">🐱</span>The cat purred happily in Mr. Wolf's coat, safe and sound again.</p>
+                        
+                        <div class="dialogue"><span class="emoji">🦈</span>"See? We really can be good guys," Mr. Shark said proudly.</div>
+                        
+                        <p class="story-text"><span class="emoji">🐍</span>Mr. Snake rolled his eyes but gave Nehemiah a tiny smile.</p>
+                        
+                        <p class="story-text" style="text-align: center; font-weight: 600; font-size: 1.4em; color: #FF6B6B; margin-top: 30px;"><span class="emoji">🌟</span>And together, the Bad Guys and Nehemiah saved the day.</p>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 40px; font-family: 'Fredoka', sans-serif; font-size: 1.5em; color: #4ECDC4;">
+                        ~ The End ~
+                    </div>
+                </div>
+                <div class="page-number">6</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changePage(-1)">← Previous</button>
+        <button class="nav-btn" id="nextBtn" onclick="changePage(1)">Next →</button>
+    </div>
+
+    <script>
+        let currentPage = 0;
+        const pages = document.querySelectorAll('.page');
+        const totalPages = pages.length;
+
+        function showPage(pageIndex) {
+            pages.forEach((page, index) => {
+                page.classList.toggle('active', index === pageIndex);
+            });
+            
+            document.getElementById('prevBtn').disabled = pageIndex === 0;
+            document.getElementById('nextBtn').disabled = pageIndex === totalPages - 1;
+        }
+
+        function changePage(direction) {
+            const newPage = currentPage + direction;
+            if (newPage >= 0 && newPage < totalPages) {
+                currentPage = newPage;
+                showPage(currentPage);
+            }
+        }
+
+        // Initialize
+        showPage(0);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') changePage(-1);
+            if (e.key === 'ArrowRight') changePage(1);
+        });
+    </script>
+</body>
+</html>
