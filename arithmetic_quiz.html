@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arithmetic Quiz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .quiz-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .quiz-title {
+            color: #4a5568;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .quiz-subtitle {
+            color: #718096;
+            font-size: 1.2em;
+        }
+
+        .name-section {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .name-input {
+            width: 100%;
+            padding: 12px;
+            border: 3px solid #e17055;
+            border-radius: 10px;
+            font-size: 1.1em;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: transform 0.2s;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,184,148,0.3);
+        }
+
+        .question {
+            background: linear-gradient(135deg, #a8e6cf 0%, #dcedc1 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 6px solid #00b894;
+        }
+
+        .question-number {
+            color: #2d3436;
+            font-weight: bold;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            color: #2d3436;
+            font-size: 1.8em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .option {
+            background: white;
+            border: 3px solid #74b9ff;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .option:hover {
+            background: #74b9ff;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .option.selected {
+            background: #0984e3;
+            color: white;
+            border-color: #0984e3;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.3em;
+            font-weight: bold;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            transition: transform 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(232,67,147,0.3);
+        }
+
+        .results {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .score {
+            font-size: 3em;
+            color: #2d3436;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .message {
+            font-size: 1.5em;
+            color: #636e72;
+            margin-bottom: 20px;
+        }
+
+        .restart-btn {
+            background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .restart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108,92,231,0.3);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .quiz-container {
+                padding: 20px;
+            }
+            
+            .quiz-title {
+                font-size: 2em;
+            }
+            
+            .question-text {
+                font-size: 1.5em;
+            }
+            
+            .options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1 class="quiz-title">🧮 Arithmetic Quiz 🧮</h1>
+            <p class="quiz-subtitle">Test your math skills with 8 challenging questions!</p>
+        </div>
+
+        <div id="nameSection" class="name-section">
+            <h2>👋 Welcome! What's your name?</h2>
+            <input type="text" id="studentName" class="name-input" placeholder="Enter your name here..." maxlength="30">
+            <br>
+            <button class="start-btn" onclick="startQuiz()">Start Quiz! 🚀</button>
+        </div>
+
+        <div id="quizSection" class="hidden">
+            <div id="questionsContainer"></div>
+            <button class="submit-btn" onclick="submitQuiz()">Submit Quiz 📝</button>
+        </div>
+
+        <div id="resultsSection" class="results hidden">
+            <div class="score" id="finalScore"></div>
+            <div class="message" id="resultMessage"></div>
+            <button class="restart-btn" onclick="restartQuiz()">Take Quiz Again 🔄</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "127 + 289 = ?",
+                options: ["416", "415", "417", "414"],
+                correct: 0
+            },
+            {
+                question: "456 + 378 = ?",
+                options: ["834", "833", "835", "832"],
+                correct: 0
+            },
+            {
+                question: "523 - 187 = ?",
+                options: ["335", "336", "337", "334"],
+                correct: 1
+            },
+            {
+                question: "804 - 256 = ?",
+                options: ["547", "549", "548", "546"],
+                correct: 2
+            },
+            {
+                question: "23 × 17 = ?",
+                options: ["391", "389", "392", "388"],
+                correct: 0
+            },
+            {
+                question: "19 × 26 = ?",
+                options: ["493", "495", "494", "496"],
+                correct: 2
+            },
+            {
+                question: "672 ÷ 24 = ?",
+                options: ["27", "29", "28", "26"],
+                correct: 2
+            },
+            {
+                question: "135 ÷ 15 = ?",
+                options: ["8", "9", "10", "7"],
+                correct: 1
+            }
+        ];
+
+        let studentName = '';
+        let userAnswers = [];
+
+        function startQuiz() {
+            const nameInput = document.getElementById('studentName');
+            studentName = nameInput.value.trim();
+            
+            if (studentName === '') {
+                alert('Please enter your name before starting the quiz! 😊');
+                return;
+            }
+            
+            document.getElementById('nameSection').classList.add('hidden');
+            document.getElementById('quizSection').classList.remove('hidden');
+            
+            displayQuestions();
+        }
+
+        function displayQuestions() {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+            
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                
+                questionDiv.innerHTML = `
+                    <div class="question-number">${index + 1}.</div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options">
+                        ${q.options.map((option, optIndex) => `
+                            <div class="option" onclick="selectAnswer(${index}, ${optIndex}, this)">
+                                ${String.fromCharCode(65 + optIndex)}. ${option}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                container.appendChild(questionDiv);
+            });
+        }
+
+        function selectAnswer(questionIndex, optionIndex, element) {
+            // Remove selection from other options in the same question
+            const questionDiv = element.closest('.question');
+            const allOptions = questionDiv.querySelectorAll('.option');
+            allOptions.forEach(opt => opt.classList.remove('selected'));
+            
+            // Select current option
+            element.classList.add('selected');
+            
+            // Store answer
+            userAnswers[questionIndex] = optionIndex;
+        }
+
+        function submitQuiz() {
+            if (userAnswers.length < questions.length || userAnswers.includes(undefined)) {
+                alert('Please answer all questions before submitting! 📝');
+                return;
+            }
+            
+            let score = 0;
+            userAnswers.forEach((answer, index) => {
+                if (answer === questions[index].correct) {
+                    score++;
+                }
+            });
+            
+            showResults(score);
+        }
+
+        function showResults(score) {
+            document.getElementById('quizSection').classList.add('hidden');
+            document.getElementById('resultsSection').classList.remove('hidden');
+            
+            const scoreElement = document.getElementById('finalScore');
+            const messageElement = document.getElementById('resultMessage');
+            
+            scoreElement.textContent = `${score}/8`;
+            
+            let message = `Great job, ${studentName}! `;
+            if (score === 8) {
+                message += "Perfect score! You're a math superstar! 🌟";
+            } else if (score >= 6) {
+                message += "Excellent work! You really know your arithmetic! 👏";
+            } else if (score >= 4) {
+                message += "Good effort! Keep practicing and you'll improve! 💪";
+            } else {
+                message += "Keep studying! Math gets easier with practice! 📚";
+            }
+            
+            messageElement.textContent = message;
+        }
+
+        function restartQuiz() {
+            userAnswers = [];
+            studentName = '';
+            document.getElementById('studentName').value = '';
+            document.getElementById('resultsSection').classList.add('hidden');
+            document.getElementById('nameSection').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
