@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nehemiah's Saturday Class Assessment — May 9</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sunny: #FFD93D;
+    --sky: #4CC9F0;
+    --grass: #06D6A0;
+    --coral: #FF6B6B;
+    --purple: #7B4FE9;
+    --orange: #FF9F1C;
+    --pink: #F72585;
+    --cream: #FFFDF5;
+    --dark: #1A1A2E;
+    --card: #FFFFFF;
+    --shadow: 0 4px 20px rgba(0,0,0,0.1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, #667eea22 0%, #f093fb22 100%);
+    background-color: #f5f0ff;
+    color: var(--dark);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, var(--purple), #B044E8);
+    color: white;
+    text-align: center;
+    padding: 2rem 1rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    bottom: -30px; left: 0; right: 0;
+    height: 60px;
+    background: #f5f0ff;
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  }
+  .header-stars {
+    font-size: 2rem;
+    letter-spacing: 8px;
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+  }
+  .header h1 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 2.4rem;
+    font-weight: 800;
+    line-height: 1.2;
+    text-shadow: 2px 3px 0 rgba(0,0,0,0.2);
+  }
+  .header .date {
+    font-size: 1.1rem;
+    opacity: 0.85;
+    margin-top: 0.5rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  /* ENCOURAGE BANNER */
+  .encourage {
+    background: var(--sunny);
+    color: #5a3a00;
+    text-align: center;
+    padding: 1.2rem 2rem;
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.15rem;
+    font-weight: 700;
+    border-bottom: 4px solid #e6c200;
+  }
+
+  /* NAV TABS */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem 1rem 0.5rem;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.7rem 1.5rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: white;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+  }
+  .tab-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 rgba(0,0,0,0.2); }
+  .tab-btn.tab-1 { background: var(--sky); }
+  .tab-btn.tab-2 { background: var(--grass); }
+  .tab-btn.tab-3 { background: var(--coral); }
+  .tab-btn.active { outline: 4px solid var(--dark); outline-offset: 2px; }
+
+  /* MAIN CONTENT */
+  .main { max-width: 800px; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+
+  .page { display: none; animation: fadeIn 0.3s ease; }
+  .page.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* PAGE HEADER STRIP */
+  .page-strip {
+    border-radius: 20px 20px 0 0;
+    padding: 1.2rem 1.8rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .page-strip.strip-1 { background: linear-gradient(90deg, var(--sky), #0096c7); }
+  .page-strip.strip-2 { background: linear-gradient(90deg, var(--grass), #028a65); }
+  .page-strip.strip-3 { background: linear-gradient(90deg, var(--coral), #d00000); }
+  .page-icon { font-size: 2.5rem; }
+  .page-strip h2 { font-family: 'Baloo 2', cursive; font-size: 1.5rem; font-weight: 800; }
+  .page-strip p { font-size: 0.9rem; opacity: 0.9; }
+
+  /* CARDS */
+  .card {
+    background: var(--card);
+    border-radius: 0 0 20px 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 1.5rem;
+  }
+  .card-inner {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 1.5rem;
+  }
+
+  /* STORY */
+  .story-box {
+    background: #fffef0;
+    border: 3px solid var(--sunny);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.9;
+    font-size: 1.1rem;
+  }
+  .story-box h3 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.4rem;
+    color: var(--purple);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .story-box p { margin-bottom: 0.9rem; }
+
+  /* QUESTIONS */
+  .question-block { margin-bottom: 1.8rem; }
+  .question-label {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .q-num {
+    background: var(--sky);
+    color: white;
+    border-radius: 50%;
+    min-width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .q-num.green { background: var(--grass); }
+  .q-num.red { background: var(--coral); }
+  .q-num.orange { background: var(--orange); }
+  .q-num.purple { background: var(--purple); }
+
+  .choices { display: flex; flex-direction: column; gap: 0.6rem; padding-left: 2.2rem; }
+  .choice-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    padding: 0.65rem 1rem;
+    border-radius: 12px;
+    border: 2.5px solid #e5e5e5;
+    transition: all 0.15s;
+    font-size: 1rem;
+    font-weight: 600;
+    background: #fafafa;
+  }
+  .choice-label:hover { border-color: var(--sky); background: #e8f8ff; }
+  .choice-label input[type="radio"] { accent-color: var(--purple); width: 18px; height: 18px; flex-shrink: 0; }
+  .choice-label.correct-ans { border-color: var(--grass) !important; background: #e8fff5 !important; }
+  .choice-label.wrong-ans { border-color: var(--coral) !important; background: #fff0f0 !important; }
+
+  /* SCORE BAR */
+  .score-section {
+    background: linear-gradient(135deg, #f0e6ff, #e6f7ff);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  .score-section h4 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.2rem;
+    color: var(--purple);
+    margin-bottom: 1rem;
+  }
+  .score-display {
+    font-family: 'Baloo 2', cursive;
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--purple);
+  }
+  .score-bar-wrap { background: #e0e0e0; border-radius: 50px; height: 20px; overflow: hidden; margin: 0.7rem 0; }
+  .score-bar-fill {
+    height: 100%;
+    border-radius: 50px;
+    background: linear-gradient(90deg, var(--grass), var(--sky));
+    width: 0%;
+    transition: width 0.8s ease;
+  }
+  .score-msg {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-top: 0.5rem;
+    min-height: 1.5rem;
+  }
+
+  .submit-btn {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.1rem;
+    font-weight: 800;
+    padding: 0.9rem 2.5rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    color: white;
+    box-shadow: 0 5px 0 rgba(0,0,0,0.2);
+    transition: all 0.15s;
+    display: block;
+    margin: 1.5rem auto 0;
+  }
+  .submit-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(0,0,0,0.2); }
+  .submit-btn.btn-blue { background: var(--sky); }
+  .submit-btn.btn-green { background: var(--grass); }
+  .submit-btn.btn-red { background: var(--coral); }
+
+  /* WRITING LINES */
+  .writing-section { margin-bottom: 1.5rem; }
+  .sentence-to-copy {
+    background: #fff8e6;
+    border-left: 5px solid var(--orange);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    color: #5a3a00;
+  }
+  .write-line {
+    width: 100%;
+    border: none;
+    border-bottom: 2.5px solid #ccc;
+    border-radius: 0;
+    background: repeating-linear-gradient(transparent, transparent 34px, #dde8ff 34px, #dde8ff 36px);
+    line-height: 36px;
+    font-size: 1.1rem;
+    font-family: 'Nunito', sans-serif;
+    padding: 4px 8px;
+    height: 44px;
+    outline: none;
+    color: var(--dark);
+    transition: border-color 0.2s;
+  }
+  .write-line:focus { border-color: var(--sky); }
+  .writing-pair { margin-bottom: 1.8rem; padding-bottom: 1.5rem; border-bottom: 1.5px dashed #e0e0e0; }
+  .writing-pair:last-child { border-bottom: none; }
+  .writing-check {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-top: 0.6rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #777;
+  }
+  .writing-check input { accent-color: var(--grass); width: 18px; height: 18px; }
+
+  /* MATH */
+  .math-q-block { margin-bottom: 2rem; }
+  .math-q-text {
+    background: #fff0f8;
+    border: 2.5px solid #ffb3d9;
+    border-radius: 14px;
+    padding: 1rem 1.2rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.9rem;
+    line-height: 1.6;
+  }
+
+  /* STARS DECORATION */
+  .stars-row { text-align: center; font-size: 1.8rem; margin: 0.5rem 0 1rem; letter-spacing: 6px; }
+
+  /* FINAL SCORE SUMMARY */
+  .final-banner {
+    background: linear-gradient(135deg, var(--purple), var(--pink));
+    color: white;
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    display: none;
+    margin-top: 2rem;
+    box-shadow: 0 8px 30px rgba(123,79,233,0.3);
+  }
+  .final-banner.visible { display: block; }
+  .final-banner h3 { font-family: 'Baloo 2', cursive; font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem; }
+  .final-banner p { font-size: 1.05rem; opacity: 0.92; line-height: 1.7; }
+
+  /* SECTION DIVIDER */
+  .divider {
+    text-align: center;
+    font-size: 1.5rem;
+    letter-spacing: 8px;
+    margin: 1.5rem 0;
+    opacity: 0.5;
+  }
+
+  @media (max-width: 600px) {
+    .header h1 { font-size: 1.7rem; }
+    .card { padding: 1.2rem; }
+    .score-display { font-size: 2.2rem; }
+    .tabs { gap: 0.6rem; }
+    .tab-btn { font-size: 0.85rem; padding: 0.6rem 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-stars">⭐ ⭐ ⭐ ⭐ ⭐</div>
+  <h1>Nehemiah's Saturday Class<br>Assessment</h1>
+  <div class="date">📅 May 9, 2026</div>
+</div>
+
+<div class="encourage">
+  🌟 Nehemiah, you can do this! Finish everything, and we will discuss it together in our next class! 🌟
+</div>
+
+<div class="tabs">
+  <button class="tab-btn tab-1 active" onclick="showPage(1)">📖 Page 1: Reading</button>
+  <button class="tab-btn tab-2" onclick="showPage(2)">✏️ Page 2: Writing</button>
+  <button class="tab-btn tab-3" onclick="showPage(3)">➕ Page 3: Math</button>
+</div>
+
+<div class="main">
+
+  <!-- ===== PAGE 1: READING ===== -->
+  <div class="page active" id="page-1">
+    <div class="page-strip strip-1">
+      <div class="page-icon">📖</div>
+      <div>
+        <h2>Reading Comprehension</h2>
+        <p>Read the story carefully, then answer the questions!</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="story-box">
+        <h3>🥪 "Leo Makes His Own Lunch" 🥪</h3>
+        <p>One sunny morning, Leo woke up and said, <strong>"Today, I will make my own lunch — ALL BY MYSELF!"</strong></p>
+        <p>His mom raised one eyebrow. His dad tried not to smile. His little sister just stared.</p>
+        <p>Leo walked to the kitchen. He got out the bread. <em>Plop.</em> He put peanut butter on it. <em>Squiiish.</em> He added jelly. <em>Splat!</em> A big blob of jelly landed right on his nose.</p>
+        <p>"That is fine," Leo said. "I am still doing this."</p>
+        <p>He smooshed the two slices together. The sandwich looked a little… lumpy. It had more jelly on one side than the other. One corner had too much peanut butter. But Leo did not give up.</p>
+        <p>He cut it into two triangles — well, mostly triangles — put it on a plate, and sat down at the table.</p>
+        <p><strong>He started it. He finished it. ALL BY HIMSELF.</strong></p>
+        <p>Leo took a big bite. It was the best sandwich he had ever eaten. Maybe because he made it himself. Or maybe because a little jelly was still on his nose.</p>
+        <p>His dad laughed. His mom clapped. His little sister said, <em>"Can you make MY lunch too?"</em></p>
+        <p>Leo smiled and said, <strong>"Nope. But I can teach you!"</strong></p>
+        <p style="text-align:center; font-size:1.3rem; margin-top:1rem;">🥜🍇🥪 THE END 🥪🍇🥜</p>
+      </div>
+
+      <div class="stars-row">⭐ ⭐ ⭐</div>
+
+      <h3 style="font-family:'Baloo 2',cursive; color:var(--sky); margin-bottom:1.2rem; font-size:1.3rem;">Reading Questions</h3>
+
+      <!-- Q1 -->
+      <div class="question-block">
+        <div class="question-label">
+          <span class="q-num">1</span>
+          <span>What did Leo decide to do all by himself?</span>
+        </div>
+        <div class="choices">
+          <label class="choice-label"><input type="radio" name="rc1" value="a"> 🍳 Cook breakfast</label>
+          <label class="choice-label"><input type="radio" name="rc1" value="b"> 🥪 Make his own lunch</label>
+          <label class="choice-label"><input type="radio" name="rc1" value="c"> 🧹 Clean the kitchen</label>
+          <label class="choice-label"><input type="radio" name="rc1" value="d"> 🐶 Walk the dog</label>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="question-block">
+        <div class="question-label">
+          <span class="q-num green">2</span>
+          <span>What landed on Leo's nose while he was making the sandwich?</span>
+        </div>
+        <div class="choices">
+          <label class="choice-label"><input type="radio" name="rc2" value="a"> 🧈 Butter</label>
+          <label class="choice-label"><input type="radio" name="rc2" value="b"> 🍞 A piece of bread</label>
+          <label class="choice-label"><input type="radio" name="rc2" value="c"> 🍇 A blob of jelly</label>
+          <label class="choice-label"><input type="radio" name="rc2" value="d"> 🥜 Peanut butter</label>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="question-block">
+        <div class="question-label">
+          <span class="q-num red">3</span>
+          <span>What did Leo do when the sandwich looked lumpy?</span>
+        </div>
+        <div class="choices">
+          <label class="choice-label"><input type="radio" name="rc3" value="a"> 😢 He cried and stopped</label>
+          <label class="choice-label"><input type="radio" name="rc3" value="b"> 🛑 He asked his mom for help</label>
+          <label class="choice-label"><input type="radio" name="rc3" value="c"> 💪 He did not give up and kept going</label>
+          <label class="choice-label"><input type="radio" name="rc3" value="d"> 🗑️ He threw it away</label>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="question-block">
+        <div class="question-label">
+          <span class="q-num orange">4</span>
+          <span>What did Leo's little sister want at the end of the story?</span>
+        </div>
+        <div class="choices">
+          <label class="choice-label"><input type="radio" name="rc4" value="a"> 🥪 She wanted Leo to make her lunch too</label>
+          <label class="choice-label"><input type="radio" name="rc4" value="b"> 🎮 She wanted to play a game</label>
+          <label class="choice-label"><input type="radio" name="rc4" value="c"> 😴 She wanted to go take a nap</label>
+          <label class="choice-label"><input type="radio" name="rc4" value="d"> 🍕 She wanted pizza instead</label>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="question-block">
+        <div class="question-label">
+          <span class="q-num purple">5</span>
+          <span>What is the BIG lesson we can learn from Leo in this story?</span>
+        </div>
+        <div class="choices">
+          <label class="choice-label"><input type="radio" name="rc5" value="a"> 🧑‍🍳 Only grown-ups can make sandwiches</label>
+          <label class="choice-label"><input type="radio" name="rc5" value="b"> 🌟 If you start something, you can finish it all by yourself!</label>
+          <label class="choice-label"><input type="radio" name="rc5" value="c"> 🤷 Always ask someone else to do things for you</label>
+          <label class="choice-label"><input type="radio" name="rc5" value="d"> 🍕 Sandwiches taste better with pizza</label>
+        </div>
+      </div>
+
+      <button class="submit-btn btn-blue" onclick="scoreReading()">Check My Reading Score! ✅</button>
+
+      <div class="score-section" id="reading-score-box" style="display:none; margin-top:1.5rem;">
+        <h4>📖 Reading Score</h4>
+        <div class="score-display" id="reading-score-num">0/5</div>
+        <div class="score-bar-wrap">
+          <div class="score-bar-fill" id="reading-bar"></div>
+        </div>
+        <div class="score-msg" id="reading-msg"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE 2: WRITING ===== -->
+  <div class="page" id="page-2">
+    <div class="page-strip strip-2">
+      <div class="page-icon">✏️</div>
+      <div>
+        <h2>Writing Practice</h2>
+        <p>Read each sentence out loud, then write it on the lines below!</p>
+      </div>
+    </div>
+    <div class="card">
+
+      <p style="font-size:1rem; color:#555; margin-bottom:1.5rem; font-weight:600;">
+        🗣️ <strong>How to do this:</strong> First, read the orange sentence. Say it out loud. Then, write it again on the line below it. When you are done with each one, put a ✅ checkmark!
+      </p>
+
+      <!-- Sentence 1 -->
+      <div class="writing-pair">
+        <div class="sentence-to-copy">1. I can do hard things all by myself.</div>
+        <input type="text" class="write-line" id="w1" placeholder="Write the sentence here..." />
+        <div class="writing-check">
+          <input type="checkbox" id="wc1" onchange="scoreWriting()">
+          <label for="wc1">I wrote this sentence! ✅</label>
+        </div>
+      </div>
+
+      <!-- Sentence 2 -->
+      <div class="writing-pair">
+        <div class="sentence-to-copy">2. Leo made a big, lumpy sandwich.</div>
+        <input type="text" class="write-line" id="w2" placeholder="Write the sentence here..." />
+        <div class="writing-check">
+          <input type="checkbox" id="wc2" onchange="scoreWriting()">
+          <label for="wc2">I wrote this sentence! ✅</label>
+        </div>
+      </div>
+
+      <!-- Sentence 3 -->
+      <div class="writing-pair">
+        <div class="sentence-to-copy">3. I will start my work and finish it.</div>
+        <input type="text" class="write-line" id="w3" placeholder="Write the sentence here..." />
+        <div class="writing-check">
+          <input type="checkbox" id="wc3" onchange="scoreWriting()">
+          <label for="wc3">I wrote this sentence! ✅</label>
+        </div>
+      </div>
+
+      <!-- Sentence 4 -->
+      <div class="writing-pair">
+        <div class="sentence-to-copy">4. He did not stop when things got hard.</div>
+        <input type="text" class="write-line" id="w4" placeholder="Write the sentence here..." />
+        <div class="writing-check">
+          <input type="checkbox" id="wc4" onchange="scoreWriting()">
+          <label for="wc4">I wrote this sentence! ✅</label>
+        </div>
+      </div>
+
+      <!-- Sentence 5 -->
+      <div class="writing-pair">
+        <div class="sentence-to-copy">5. I am so proud of myself today!</div>
+        <input type="text" class="write-line" id="w5" placeholder="Write the sentence here..." />
+        <div class="writing-check">
+          <input type="checkbox" id="wc5" onchange="scoreWriting()">
+          <label for="wc5">I wrote this sentence! ✅</label>
+        </div>
+      </div>
+
+      <div class="score-section" id="writing-score-box" style="margin-top:1.5rem;">
+        <h4>✏️ Writing Score</h4>
+        <div class="score-display" id="writing-score-num">0/5</div>
+        <div class="score-bar-wrap">
+          <div class="score-bar-fill" id="writing-bar"></div>
+        </div>
+        <div class="score-msg" id="writing-msg">Check each box when you finish writing a sentence!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE 3: MATH ===== -->
+  <div class="page" id="page-3">
+    <div class="page-strip strip-3">
+      <div class="page-icon">➕</div>
+      <div>
+        <h2>Math Word Problems</h2>
+        <p>Read each problem and choose the best answer!</p>
+      </div>
+    </div>
+    <div class="card">
+
+      <p style="font-size:1rem; color:#555; margin-bottom:1.5rem; font-weight:600;">
+        🧠 <strong>Think carefully!</strong> Read each story, then pick the right answer. You can use your fingers to count!
+      </p>
+
+      <!-- Math Q1 -->
+      <div class="math-q-block">
+        <div class="question-label">
+          <span class="q-num">1</span>
+          <span>Leo had 12 grapes. He ate 4 of them. Then his mom gave him 8 more. How many grapes does Leo have now?</span>
+        </div>
+        <div class="math-q-text">12 – 4 + 8 = ?</div>
+        <div class="choices">
+          <label class="choice-label"><input type="radio" name="m1" value="a"> 14</label>
+          <label class="choice-label"><input type="radio" name="m1" value="b"> 16</label>
+          <label class="choice-label"><input type="radio" name="m1" value="c"> 18</label>
+          <label class="choice-label"><input type="radio" name="m1" value="d"> 20</label>
+        </div>
+      </div>
+
+      <!-- Math Q2 -->
+      <div class="math-q-block">
+        <div class="question-label">
+          <span class="q-num green">2</span>
+          <span>Nehemiah had 9 stickers. He gave 3 to his friend. Then he found 5 more stickers on the floor. How many stickers does he have?</span>
+        </div>
+        <div class="math-q-text">9 – 3 + 5 = ?</div>
+        <div class="choices">
+          <label class="choice-label"><input type="radio" name="m2" value="a"> 7</label>
+          <label class="choice-label"><input type="radio" name="m2" value="b"> 11</label>
+          <label class="choice-label"><input type="radio" name="m2" value="c"> 12</label>
+          <label class="choice-label"><input type="radio" name="m2" value="d"> 13</label>
+        </div>
+      </div>
+
+      <!-- Math Q3 -->
+      <div class="math-q-block">
+        <div class="question-label">
+          <span class="q-num red">3</span>
+          <span>There were 15 birds sitting on a fence. 6 birds flew away. Then 3 more birds came to sit. How many birds are on the fence now?</span>
+        </div>
+        <div class="math-q-text">15 – 6 + 3 = ?</div>
+        <div class="choices">
+          <label class="choice-label"><input type="radio" name="m3" value="a"> 10</label>
+          <label class="choice-label"><input type="radio" name="m3" value="b"> 12</label>
+          <label class="choice-label"><input type="radio" name="m3" value="c"> 13</label>
+          <label class="choice-label"><input type="radio" name="m3" value="d"> 18</label>
+        </div>
+      </div>
+
+      <!-- Math Q4 -->
+      <div class="math-q-block">
+        <div class="question-label">
+          <span class="q-num orange">4</span>
+          <span>A jar had 10 cookies. Leo ate 2 cookies. Then his sister ate 3 cookies. How many cookies are left in the jar?</span>
+        </div>
+        <div class="math-q-text">10 – 2 – 3 = ?</div>
+        <div class="choices">
+          <label class="choice-label"><input type="radio" name="m4" value="a"> 3</label>
+          <label class="choice-label"><input type="radio" name="m4" value="b"> 4</label>
+          <label class="choice-label"><input type="radio" name="m4" value="c"> 5</label>
+          <label class="choice-label"><input type="radio" name="m4" value="d"> 6</label>
+        </div>
+      </div>
+
+      <!-- Math Q5 -->
+      <div class="math-q-block">
+        <div class="question-label">
+          <span class="q-num purple">5</span>
+          <span>Nehemiah scored 7 points in a game. Then he scored 6 more points. Then he lost 4 points. What is his score now?</span>
+        </div>
+        <div class="math-q-text">7 + 6 – 4 = ?</div>
+        <div class="choices">
+          <label class="choice-label"><input type="radio" name="m5" value="a"> 8</label>
+          <label class="choice-label"><input type="radio" name="m5" value="b"> 9</label>
+          <label class="choice-label"><input type="radio" name="m5" value="c"> 10</label>
+          <label class="choice-label"><input type="radio" name="m5" value="d"> 11</label>
+        </div>
+      </div>
+
+      <!-- Math Q6 -->
+      <div class="math-q-block">
+        <div class="question-label">
+          <span class="q-num">6</span>
+          <span>There were 8 kids on the playground. 5 more kids came outside to play. Then 4 kids went home for lunch. How many kids are still on the playground?</span>
+        </div>
+        <div class="math-q-text">8 + 5 – 4 = ?</div>
+        <div class="choices">
+          <label class="choice-label"><input type="radio" name="m6" value="a"> 7</label>
+          <label class="choice-label"><input type="radio" name="m6" value="b"> 8</label>
+          <label class="choice-label"><input type="radio" name="m6" value="c"> 9</label>
+          <label class="choice-label"><input type="radio" name="m6" value="d"> 11</label>
+        </div>
+      </div>
+
+      <!-- Math Q7 -->
+      <div class="math-q-block">
+        <div class="question-label">
+          <span class="q-num green">7</span>
+          <span>Leo had 14 toy cars. He lost 5 cars under the couch. He found 3 of them later. How many toy cars does he have now?</span>
+        </div>
+        <div class="math-q-text">14 – 5 + 3 = ?</div>
+        <div class="choices">
+          <label class="choice-label"><input type="radio" name="m7" value="a"> 10</label>
+          <label class="choice-label"><input type="radio" name="m7" value="b"> 11</label>
+          <label class="choice-label"><input type="radio" name="m7" value="c"> 12</label>
+          <label class="choice-label"><input type="radio" name="m7" value="d"> 16</label>
+        </div>
+      </div>
+
+      <!-- Math Q8 -->
+      <div class="math-q-block">
+        <div class="question-label">
+          <span class="q-num red">8</span>
+          <span>A bookshelf had 11 books. Nehemiah took out 4 books to read. Then he added 7 new books. How many books are on the shelf now?</span>
+        </div>
+        <div class="math-q-text">11 – 4 + 7 = ?</div>
+        <div class="choices">
+          <label class="choice-label"><input type="radio" name="m8" value="a"> 12</label>
+          <label class="choice-label"><input type="radio" name="m8" value="b"> 13</label>
+          <label class="choice-label"><input type="radio" name="m8" value="c"> 14</label>
+          <label class="choice-label"><input type="radio" name="m8" value="d"> 15</label>
+        </div>
+      </div>
+
+      <!-- Math Q9 -->
+      <div class="math-q-block">
+        <div class="question-label">
+          <span class="q-num orange">9</span>
+          <span>Mom baked 13 muffins. The family ate 6 for breakfast. Then Dad made 4 more muffins. How many muffins are there now?</span>
+        </div>
+        <div class="math-q-text">13 – 6 + 4 = ?</div>
+        <div class="choices">
+          <label class="choice-label"><input type="radio" name="m9" value="a"> 9</label>
+          <label class="choice-label"><input type="radio" name="m9" value="b"> 10</label>
+          <label class="choice-label"><input type="radio" name="m9" value="c"> 11</label>
+          <label class="choice-label"><input type="radio" name="m9" value="d"> 15</label>
+        </div>
+      </div>
+
+      <!-- Math Q10 -->
+      <div class="math-q-block">
+        <div class="question-label">
+          <span class="q-num purple">10</span>
+          <span>Nehemiah had 6 crayons. He got 9 more for his birthday. Then he gave 3 to his little cousin. How many crayons does Nehemiah have?</span>
+        </div>
+        <div class="math-q-text">6 + 9 – 3 = ?</div>
+        <div class="choices">
+          <label class="choice-label"><input type="radio" name="m10" value="a"> 10</label>
+          <label class="choice-label"><input type="radio" name="m10" value="b"> 11</label>
+          <label class="choice-label"><input type="radio" name="m10" value="c"> 12</label>
+          <label class="choice-label"><input type="radio" name="m10" value="d"> 13</label>
+        </div>
+      </div>
+
+      <button class="submit-btn btn-red" onclick="scoreMath()">Check My Math Score! 🧮</button>
+
+      <div class="score-section" id="math-score-box" style="display:none; margin-top:1.5rem;">
+        <h4>🧮 Math Score</h4>
+        <div class="score-display" id="math-score-num">0/10</div>
+        <div class="score-bar-wrap">
+          <div class="score-bar-fill" id="math-bar"></div>
+        </div>
+        <div class="score-msg" id="math-msg"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FINAL BANNER -->
+  <div class="final-banner" id="final-banner">
+    <div style="font-size:3rem; margin-bottom:0.8rem;">🎉🌟🎉</div>
+    <h3>Amazing Work, Nehemiah!</h3>
+    <p>
+      You started the work — and you FINISHED it!<br>
+      Just like Leo made his sandwich all by himself,<br>
+      <strong>YOU completed your assessment all by yourself!</strong><br><br>
+      We will go over everything together in our next class.<br>
+      Keep being the superstar that you are! ⭐
+    </p>
+    <div style="font-size:3rem; margin-top:1rem;">🏆🥪📚</div>
+  </div>
+
+</div>
+
+<script>
+  const rcAnswers = { rc1:'b', rc2:'c', rc3:'c', rc4:'a', rc5:'b' };
+  const mathAnswers = { m1:'b', m2:'b', m3:'b', m4:'c', m5:'b', m6:'c', m7:'c', m8:'c', m9:'c', m10:'c' };
+
+  function showPage(n) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('page-'+n).classList.add('active');
+    document.querySelectorAll('.tab-btn')[n-1].classList.add('active');
+  }
+
+  function getMsg(pct) {
+    if (pct === 100) return '🏆 Perfect score! You are AMAZING, Nehemiah!';
+    if (pct >= 80)  return '⭐ Wow! Great job! Almost perfect!';
+    if (pct >= 60)  return '💪 Good effort! Keep going — you\'ve got this!';
+    if (pct >= 40)  return '😊 Nice try! We\'ll review together in class!';
+    return '🤗 Don\'t worry! We will work through these in class!';
+  }
+
+  function scoreReading() {
+    let score = 0;
+    Object.entries(rcAnswers).forEach(([name, correct]) => {
+      const sel = document.querySelector(`input[name="${name}"]:checked`);
+      document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+        const lbl = r.parentElement;
+        lbl.classList.remove('correct-ans','wrong-ans');
+        if (r.value === correct) lbl.classList.add('correct-ans');
+      });
+      if (sel) {
+        if (sel.value === correct) score++;
+        else sel.parentElement.classList.add('wrong-ans');
+      }
+    });
+    const pct = (score/5)*100;
+    const box = document.getElementById('reading-score-box');
+    box.style.display = 'block';
+    document.getElementById('reading-score-num').textContent = score+'/5';
+    setTimeout(() => document.getElementById('reading-bar').style.width = pct+'%', 100);
+    document.getElementById('reading-msg').textContent = getMsg(pct);
+    checkAllDone();
+  }
+
+  function scoreWriting() {
+    let score = 0;
+    for (let i=1; i<=5; i++) {
+      if (document.getElementById('wc'+i).checked) score++;
+    }
+    const pct = (score/5)*100;
+    document.getElementById('writing-score-num').textContent = score+'/5';
+    setTimeout(() => document.getElementById('writing-bar').style.width = pct+'%', 100);
+    document.getElementById('writing-msg').textContent = score === 0
+      ? 'Check each box when you finish writing a sentence!'
+      : getMsg(pct);
+    checkAllDone();
+  }
+
+  function scoreMath() {
+    let score = 0;
+    Object.entries(mathAnswers).forEach(([name, correct]) => {
+      const sel = document.querySelector(`input[name="${name}"]:checked`);
+      document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+        const lbl = r.parentElement;
+        lbl.classList.remove('correct-ans','wrong-ans');
+        if (r.value === correct) lbl.classList.add('correct-ans');
+      });
+      if (sel) {
+        if (sel.value === correct) score++;
+        else sel.parentElement.classList.add('wrong-ans');
+      }
+    });
+    const pct = (score/10)*100;
+    const box = document.getElementById('math-score-box');
+    box.style.display = 'block';
+    document.getElementById('math-score-num').textContent = score+'/10';
+    setTimeout(() => document.getElementById('math-bar').style.width = pct+'%', 100);
+    document.getElementById('math-msg').textContent = getMsg(pct);
+    checkAllDone();
+  }
+
+  function checkAllDone() {
+    const readingDone = document.getElementById('reading-score-box').style.display !== 'none';
+    const mathDone = document.getElementById('math-score-box').style.display !== 'none';
+    const writingDone = document.querySelectorAll('.writing-check input:checked').length > 0;
+    if (readingDone && mathDone) {
+      document.getElementById('final-banner').classList.add('visible');
+      document.getElementById('final-banner').scrollIntoView({ behavior:'smooth', block:'center' });
+    }
+  }
+</script>
+</body>
+</html>
