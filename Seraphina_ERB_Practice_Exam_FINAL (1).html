@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seraphina — ERB Practice Exam · Fractions &amp; Decimals</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f2ed;--paper:#fff;--ink:#1c1917;--ink2:#57534e;--border:#e2ddd8;--green:#1a5c3a;--gm:#2d7d52;--glt:#bbf7d0;--gbg:#f0fdf4;--amber:#c2410c;--alt:#fed7aa;--abg:#fff7ed;--blue:#1e40af;--blt:#bfdbfe;--bbg:#eff6ff;--gold:#b45309;--gbg2:#fffbeb;--glt2:#fde68a;--r:12px;--rsm:8px;--rlg:16px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.6;min-height:100vh}
+button{font-family:inherit;cursor:pointer}
+
+.hdr{background:linear-gradient(140deg,#1a5c3a 0%,#0f3d27 55%,#0a2618 100%);color:#fff;padding:2.5rem 3rem 2.2rem;position:relative;overflow:hidden}
+.hdr::after{content:'';position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.04);top:-80px;right:-60px;pointer-events:none}
+.hdr-eye{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:.5rem}
+.hdr h1{font-family:'Lora',serif;font-size:2.5rem;font-weight:700;line-height:1.1;margin-bottom:.3rem}
+.hdr-sub{font-size:.95rem;color:rgba(255,255,255,.72);font-weight:300}
+.hdr-chips{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.5rem}
+.chip{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);border-radius:100px;padding:.28rem .9rem;font-size:.76rem;font-weight:600}
+
+.notice{background:var(--gbg2);border-bottom:1px solid var(--glt2);padding:.85rem 3rem;display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;font-size:.83rem;color:var(--gold);font-weight:500}
+.ntag{background:var(--gold);color:#fff;border-radius:4px;padding:.1rem .5rem;font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+
+.toolbar{background:var(--paper);border-bottom:1px solid var(--border);padding:.85rem 3rem;display:flex;align-items:center;gap:.65rem;flex-wrap:wrap;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(28,25,23,.07)}
+.btn{display:inline-flex;align-items:center;gap:.35rem;padding:.44rem 1.05rem;border-radius:var(--rsm);border:none;font-size:.8rem;font-weight:600;transition:all .14s;white-space:nowrap}
+.btn-g{background:var(--green);color:#fff}.btn-g:hover{background:var(--gm)}
+.btn-a{background:var(--amber);color:#fff}.btn-a:hover{background:#9a3412}
+.btn-o{background:#fff;color:var(--ink);border:1.5px solid var(--border)}.btn-o:hover{background:var(--bg)}
+.ctr{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:.77rem;font-weight:500;background:var(--ink);color:#fff;padding:.34rem .9rem;border-radius:var(--rsm);min-width:130px;text-align:center}
+
+.main{max-width:900px;margin:0 auto;padding:2.5rem 1.5rem 5rem}
+
+.sp{display:none;background:var(--paper);border:2px solid var(--glt);border-radius:var(--rlg);padding:2rem 2.5rem;margin-bottom:2.5rem;box-shadow:0 4px 18px rgba(28,25,23,.09)}
+.sp.on{display:block;animation:fu .35s ease}
+@keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.sp-top{display:flex;align-items:center;gap:2rem;flex-wrap:wrap}
+.sp-circ{width:96px;height:96px;border-radius:50%;background:var(--gbg);border:3px solid var(--glt);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0}
+.sp-num{font-family:'Lora',serif;font-size:1.9rem;font-weight:700;color:var(--green);line-height:1}
+.sp-den{font-size:.68rem;color:var(--gm);font-weight:600}
+.sp-msg{font-size:1rem;font-weight:600}
+.sp-sub{font-size:.83rem;color:var(--ink2);margin-top:.25rem}
+.sp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin-top:1.4rem}
+.sp-card{background:var(--bg);border-radius:var(--r);padding:.9rem 1rem;text-align:center}
+.sp-n{font-family:'JetBrains Mono',monospace;font-size:1.3rem;color:var(--green);font-weight:500}
+.sp-l{font-size:.7rem;color:var(--ink2);margin-top:.15rem;line-height:1.35}
+
+.sec{margin-bottom:2.8rem}
+.sech{display:flex;align-items:center;gap:.9rem;margin-bottom:1.4rem;padding-bottom:.8rem;border-bottom:2px solid var(--glt)}
+.secn{width:36px;height:36px;border-radius:var(--rsm);background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Lora',serif;font-weight:700;font-size:.95rem;flex-shrink:0}
+.sect{font-family:'Lora',serif;font-size:1.18rem;font-weight:700;color:var(--green)}
+.secd{font-size:.75rem;color:var(--ink2);margin-top:.1rem}
+.secb{background:var(--abg);color:var(--amber);border:1px solid var(--alt);border-radius:100px;padding:.18rem .75rem;font-size:.67rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;margin-left:auto}
+.divider{display:flex;align-items:center;gap:1rem;color:#b8b0a8;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;margin:2.2rem 0}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:repeating-linear-gradient(90deg,var(--border) 0,var(--border) 4px,transparent 4px,transparent 8px)}
+
+.qcard{background:var(--paper);border:1.5px solid var(--border);border-radius:var(--rlg);margin-bottom:1rem;overflow:hidden;transition:box-shadow .18s,border-color .2s}
+.qcard:hover{box-shadow:0 4px 18px rgba(28,25,23,.09)}
+.qcard.qok{border-color:#4ade80}
+.qcard.qbad{border-color:#fb923c}
+.qbody{padding:1.3rem 1.5rem .9rem}
+.qrow{display:flex;align-items:flex-start;gap:.85rem}
+.qnum{min-width:29px;height:29px;border-radius:var(--rsm);background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--ink2);flex-shrink:0;margin-top:.3rem}
+.qtxt{font-size:.94rem;font-weight:500;line-height:1.65;flex:1;padding-top:.2rem}
+.fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 .16rem;font-family:'JetBrains Mono',monospace;font-size:.82rem;line-height:1.15}
+.fr .n{border-bottom:1.5px solid currentColor;padding:0 2px}
+.fr .d{padding:0 2px}
+.wbox{background:var(--gbg2);border:1.5px solid var(--glt2);border-left:4px solid var(--gold);border-radius:var(--rsm);padding:.8rem 1rem;margin-bottom:.7rem;font-size:.89rem;line-height:1.65;color:#78350f}
+.wlbl{font-size:.63rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.3rem}
+
+/* ── OPTIONS ──────────────────────────────────────
+   pointer-events:none on .locked is the ONLY lock
+   mechanism — no JS onclick manipulation needed.
+─────────────────────────────────────────────────── */
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:.52rem;padding:0 1.5rem 1.1rem}
+.opt{display:flex;align-items:center;gap:.62rem;padding:.58rem .82rem;border:1.5px solid var(--border);border-radius:var(--r);font-size:.86rem;cursor:pointer;user-select:none;transition:border-color .13s,background .13s;background:#fff}
+.opt:hover{border-color:var(--gm);background:var(--gbg)}
+.opt.sel{border-color:var(--blue);background:var(--bbg)}
+.opt.rev-ok{border-color:#16a34a;background:var(--gbg);font-weight:600}
+.opt.rev-bad{border-color:var(--amber);background:var(--abg)}
+.opt.locked{cursor:default;pointer-events:none}   /* ← CSS lock, no JS needed */
+.oletter{min-width:25px;height:25px;border-radius:6px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.69rem;font-weight:600;flex-shrink:0;color:var(--ink2);transition:all .13s}
+.opt.rev-ok  .oletter{background:var(--green);color:#fff;border-color:var(--green)}
+.opt.rev-bad .oletter{background:var(--amber);color:#fff;border-color:var(--amber)}
+
+.qfoot{border-top:1px solid var(--border);padding:.6rem 1.5rem;display:flex;align-items:center;gap:.75rem;background:var(--bg)}
+.sbtn{font-size:.75rem;font-weight:600;color:var(--blue);background:#fff;border:1.5px solid var(--blt);border-radius:var(--rsm);padding:.27rem .72rem;transition:all .13s}
+.sbtn:hover{background:var(--bbg)}
+.qfi{font-size:.98rem}
+.solbox{display:none;background:var(--gbg);border:1.5px solid #86efac;border-radius:var(--r);padding:.95rem 1.35rem;margin:0 1.5rem 1.1rem;font-size:.86rem;line-height:1.75;color:#14532d}
+.solbox.on{display:block;animation:fd .18s ease}
+@keyframes fd{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.stitle{font-weight:700;color:var(--green);margin-bottom:.5rem;font-size:.9rem}
+.ssteps{display:flex;flex-direction:column;gap:.38rem}
+.sstep{display:flex;gap:.6rem;align-items:flex-start}
+.sdot{min-width:19px;height:19px;border-radius:50%;background:var(--green);color:#fff;font-size:.63rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+
+.ftr{background:var(--ink);color:#fff;border-radius:var(--rlg);padding:1.5rem 2rem;margin-top:.8rem;font-size:.86rem;line-height:1.75}
+.ftr strong{color:#bbf7d0;font-family:'Lora',serif;font-size:.95rem}
+
+@media print{
+  .toolbar,.notice{display:none!important}
+  .solbox{display:block!important;background:#f9f9f9!important;color:#333!important;border:1px solid #ccc!important}
+  .qcard{break-inside:avoid;box-shadow:none!important;border:1px solid #ccc!important}
+  .sec{break-before:page}.sec:first-child{break-before:auto}
+  body,.hdr{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+@media(max-width:640px){
+  .hdr{padding:1.5rem 1.2rem}.hdr h1{font-size:1.8rem}
+  .toolbar,.notice{padding:.75rem 1.1rem}
+  .main{padding:1.4rem .9rem 3.5rem}
+  .opts{grid-template-columns:1fr}
+  .sp-grid{grid-template-columns:1fr 1fr}
+  .sp-top{flex-direction:column}
+  .qbody{padding:1.1rem 1.1rem .75rem}
+  .opts{padding:0 1.1rem .9rem}
+  .qfoot{padding:.55rem 1.1rem}
+  .solbox{margin:0 1.1rem .9rem}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-eye">Head-Royce School · Fourth Grade · 2025–2026</div>
+  <h1>ERB Practice Exam</h1>
+  <div class="hdr-sub">Fractions &amp; Decimals · Seraphina Sibhatu · CTP Level 4 Style</div>
+  <div class="hdr-chips">
+    <span class="chip">📚 4 Sections</span>
+    <span class="chip">🧮 32 Questions</span>
+    <span class="chip">⏱ ~45 Minutes</span>
+    <span class="chip">✦ All Answers Verified</span>
+  </div>
+</header>
+
+<div class="notice">
+  <span class="ntag">Focus Skills</span>
+  Fraction Equivalence &nbsp;·&nbsp; Ordering Fractions &nbsp;·&nbsp; Unit Fractions &amp; Operations &nbsp;·&nbsp; Decimal Notation &amp; Comparison
+</div>
+
+<div class="toolbar">
+  <button class="btn btn-g" onclick="showAll()">👁 Show All Solutions</button>
+  <button class="btn btn-o" onclick="hideAll()">Hide All</button>
+  <button class="btn btn-a" onclick="submitExam()">✓ Submit &amp; Score</button>
+  <button class="btn btn-o" onclick="resetExam()">↺ Reset</button>
+  <button class="btn btn-o" onclick="window.print()">🖨 Print</button>
+  <div class="ctr" id="ctr">0 of 32 answered</div>
+</div>
+
+<div class="main">
+
+<div class="sp" id="sp">
+  <div class="sp-top">
+    <div class="sp-circ"><div class="sp-num" id="spN">—</div><div class="sp-den" id="spD">correct</div></div>
+    <div><div class="sp-msg" id="spM">—</div><div class="sp-sub">Review solutions for any questions you missed.</div></div>
+  </div>
+  <div class="sp-grid">
+    <div class="sp-card"><div class="sp-n" id="sc1">–</div><div class="sp-l">Section 1<br>Equivalence &amp; Ordering</div></div>
+    <div class="sp-card"><div class="sp-n" id="sc2">–</div><div class="sp-l">Section 2<br>Unit Fractions &amp; Ops</div></div>
+    <div class="sp-card"><div class="sp-n" id="sc3">–</div><div class="sp-l">Section 3<br>Decimal Notation</div></div>
+    <div class="sp-card"><div class="sp-n" id="sc4">–</div><div class="sp-l">Section 4<br>Mixed Challenge</div></div>
+  </div>
+</div>
+
+<!-- ══ SECTION 1 ══════════════════════════════════ -->
+<div class="sec">
+<div class="sech"><div class="secn">1</div><div><div class="sect">Fraction Equivalence &amp; Ordering</div><div class="secd">Finding equivalent fractions · Comparing with &lt; &gt; = · Ordering least to greatest</div></div><div class="secb">⚡ Your Focus Area</div></div>
+
+<div class="qcard" id="qc1" data-correct="C"><div class="qbody"><div class="qrow"><div class="qnum">1</div><div class="qtxt">Which fraction is equivalent to <span class="fr"><span class="n">2</span><span class="d">3</span></span>?</div></div></div><div class="opts" data-q="1"><div class="opt" data-letter="A"><div class="oletter">A</div>3/6</div><div class="opt" data-letter="B"><div class="oletter">B</div>4/9</div><div class="opt" data-letter="C"><div class="oletter">C</div>8/12</div><div class="opt" data-letter="D"><div class="oletter">D</div>6/8</div></div><div class="qfoot"><button class="sbtn" id="sb1" onclick="toggleSol(1)">Show Solution</button><span class="qfi" id="f1"></span></div><div class="solbox" id="s1"><div class="stitle">✓ Answer: C — 8/12</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>Multiply BOTH numerator and denominator by the same number.</div></div><div class="sstep"><div class="sdot">2</div><div>2 × 4 = 8 and 3 × 4 = 12 → 8/12. ✓</div></div><div class="sstep"><div class="sdot">3</div><div>3/6 = 1/2 ≠ 2/3. &nbsp;4/9: 3×2=6≠9. &nbsp;6/8 = 3/4 ≠ 2/3.</div></div></div></div></div>
+
+<div class="qcard" id="qc2" data-correct="B"><div class="qbody"><div class="qrow"><div class="qnum">2</div><div class="qtxt">Lena says <span class="fr"><span class="n">3</span><span class="d">4</span></span> and <span class="fr"><span class="n">6</span><span class="d">8</span></span> are equivalent. Which number sentence BEST proves this?</div></div></div><div class="opts" data-q="2"><div class="opt" data-letter="A"><div class="oletter">A</div>3 + 3 = 6 and 4 + 4 = 8</div><div class="opt" data-letter="B"><div class="oletter">B</div>3 × 2 = 6 and 4 × 2 = 8</div><div class="opt" data-letter="C"><div class="oletter">C</div>6 – 3 = 3 and 8 – 4 = 4</div><div class="opt" data-letter="D"><div class="oletter">D</div>3 × 4 = 12 and 6 × 8 = 48</div></div><div class="qfoot"><button class="sbtn" id="sb2" onclick="toggleSol(2)">Show Solution</button><span class="qfi" id="f2"></span></div><div class="solbox" id="s2"><div class="stitle">✓ Answer: B — 3 × 2 = 6 and 4 × 2 = 8</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>Fractions are equivalent when you multiply BOTH top and bottom by the SAME number.</div></div><div class="sstep"><div class="sdot">2</div><div>Multiplier is 2 for both: 3×2=6 and 4×2=8. ✓</div></div><div class="sstep"><div class="sdot">3</div><div>Adding (A) or subtracting (C) does NOT prove equivalence.</div></div></div></div></div>
+
+<div class="qcard" id="qc3" data-correct="D"><div class="qbody"><div class="qrow"><div class="qnum">3</div><div class="qtxt">Which set of fractions is ordered from LEAST to GREATEST?</div></div></div><div class="opts" data-q="3"><div class="opt" data-letter="A"><div class="oletter">A</div>3/4, &ensp;1/2, &ensp;1/4</div><div class="opt" data-letter="B"><div class="oletter">B</div>2/3, &ensp;1/3, &ensp;3/3</div><div class="opt" data-letter="C"><div class="oletter">C</div>1/8, &ensp;3/4, &ensp;1/2</div><div class="opt" data-letter="D"><div class="oletter">D</div>1/4, &ensp;1/2, &ensp;3/4</div></div><div class="qfoot"><button class="sbtn" id="sb3" onclick="toggleSol(3)">Show Solution</button><span class="qfi" id="f3"></span></div><div class="solbox" id="s3"><div class="stitle">✓ Answer: D — 1/4, 1/2, 3/4</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>Convert to eighths: 1/4=2/8, 1/2=4/8, 3/4=6/8.</div></div><div class="sstep"><div class="sdot">2</div><div>2/8 &lt; 4/8 &lt; 6/8, so 1/4 &lt; 1/2 &lt; 3/4. ✓</div></div><div class="sstep"><div class="sdot">3</div><div>A is greatest→least (the opposite direction).</div></div></div></div></div>
+
+<div class="qcard" id="qc4" data-correct="C"><div class="qbody"><div class="qrow"><div class="qnum">4</div><div class="qtxt"><div class="wbox"><div class="wlbl">🌟 Word Problem</div>Maya ate <span class="fr"><span class="n">2</span><span class="d">6</span></span> of a pizza. Her brother ate <span class="fr"><span class="n">1</span><span class="d">3</span></span> of the same pizza. Who ate more?</div></div></div></div><div class="opts" data-q="4"><div class="opt" data-letter="A"><div class="oletter">A</div>Maya ate more</div><div class="opt" data-letter="B"><div class="oletter">B</div>Her brother ate more</div><div class="opt" data-letter="C"><div class="oletter">C</div>They ate the same amount</div><div class="opt" data-letter="D"><div class="oletter">D</div>Cannot be determined</div></div><div class="qfoot"><button class="sbtn" id="sb4" onclick="toggleSol(4)">Show Solution</button><span class="qfi" id="f4"></span></div><div class="solbox" id="s4"><div class="stitle">✓ Answer: C — They ate the same amount</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>Convert 1/3 to sixths: 1/3 × 2/2 = 2/6.</div></div><div class="sstep"><div class="sdot">2</div><div>Maya: 2/6. Brother: 2/6. Equal! ✓</div></div><div class="sstep"><div class="sdot">3</div><div>2/6 and 1/3 are equivalent fractions — they name the same amount.</div></div></div></div></div>
+
+<div class="qcard" id="qc5" data-correct="A"><div class="qbody"><div class="qrow"><div class="qnum">5</div><div class="qtxt">Which symbol correctly completes this? &ensp;<span style="font-family:'JetBrains Mono',monospace;font-size:1.05rem">5/8 &ensp;___&ensp; 3/4</span></div></div></div><div class="opts" data-q="5"><div class="opt" data-letter="A"><div class="oletter">A</div>&lt; &ensp;(less than)</div><div class="opt" data-letter="B"><div class="oletter">B</div>&gt; &ensp;(greater than)</div><div class="opt" data-letter="C"><div class="oletter">C</div>= &ensp;(equal to)</div><div class="opt" data-letter="D"><div class="oletter">D</div>Cannot be compared</div></div><div class="qfoot"><button class="sbtn" id="sb5" onclick="toggleSol(5)">Show Solution</button><span class="qfi" id="f5"></span></div><div class="solbox" id="s5"><div class="stitle">✓ Answer: A — 5/8 &lt; 3/4</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>Convert 3/4 to eighths: 3/4 × 2/2 = 6/8.</div></div><div class="sstep"><div class="sdot">2</div><div>5/8 vs 6/8: since 5 &lt; 6, we get 5/8 &lt; 3/4. ✓</div></div><div class="sstep"><div class="sdot">3</div><div>Always find a common denominator before comparing!</div></div></div></div></div>
+
+<div class="qcard" id="qc6" data-correct="D"><div class="qbody"><div class="qrow"><div class="qnum">6</div><div class="qtxt">Which fraction is NOT equivalent to <span class="fr"><span class="n">1</span><span class="d">2</span></span>?</div></div></div><div class="opts" data-q="6"><div class="opt" data-letter="A"><div class="oletter">A</div>2/4</div><div class="opt" data-letter="B"><div class="oletter">B</div>3/6</div><div class="opt" data-letter="C"><div class="oletter">C</div>4/8</div><div class="opt" data-letter="D"><div class="oletter">D</div>3/8</div></div><div class="qfoot"><button class="sbtn" id="sb6" onclick="toggleSol(6)">Show Solution</button><span class="qfi" id="f6"></span></div><div class="solbox" id="s6"><div class="stitle">✓ Answer: D — 3/8</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>2/4÷2=1/2 ✓ &nbsp;3/6÷3=1/2 ✓ &nbsp;4/8÷4=1/2 ✓</div></div><div class="sstep"><div class="sdot">2</div><div>3/8: half of 8 is 4, not 3. So 3/8 ≠ 1/2. ✗</div></div><div class="sstep"><div class="sdot">3</div><div>Cross-multiply: 1×8=8, but 2×3=6. Since 8≠6, not equivalent.</div></div></div></div></div>
+
+<div class="qcard" id="qc7" data-correct="D"><div class="qbody"><div class="qrow"><div class="qnum">7</div><div class="qtxt"><div class="wbox"><div class="wlbl">🌟 Word Problem</div>Race times: Jade — <span class="fr"><span class="n">3</span><span class="d">5</span></span> hr, Carlos — <span class="fr"><span class="n">7</span><span class="d">10</span></span> hr, Priya — <span class="fr"><span class="n">1</span><span class="d">2</span></span> hr, Owen — <span class="fr"><span class="n">2</span><span class="d">5</span></span> hr. Who finished FIRST (shortest time)?</div></div></div></div><div class="opts" data-q="7"><div class="opt" data-letter="A"><div class="oletter">A</div>Jade</div><div class="opt" data-letter="B"><div class="oletter">B</div>Carlos</div><div class="opt" data-letter="C"><div class="oletter">C</div>Priya</div><div class="opt" data-letter="D"><div class="oletter">D</div>Owen</div></div><div class="qfoot"><button class="sbtn" id="sb7" onclick="toggleSol(7)">Show Solution</button><span class="qfi" id="f7"></span></div><div class="solbox" id="s7"><div class="stitle">✓ Answer: D — Owen</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>Convert to tenths: Jade 3/5=6/10, Carlos=7/10, Priya 1/2=5/10, Owen 2/5=4/10.</div></div><div class="sstep"><div class="sdot">2</div><div>Smallest: 4/10 &lt; 5/10 &lt; 6/10 &lt; 7/10.</div></div><div class="sstep"><div class="sdot">3</div><div>Owen has the smallest time (4/10) → finished first. ✓</div></div></div></div></div>
+
+<div class="qcard" id="qc8" data-correct="C"><div class="qbody"><div class="qrow"><div class="qnum">8</div><div class="qtxt">Find the missing numerator: &emsp;<span style="font-family:'JetBrains Mono',monospace;font-size:1rem">3/5 = ?/20</span></div></div></div><div class="opts" data-q="8"><div class="opt" data-letter="A"><div class="oletter">A</div>6</div><div class="opt" data-letter="B"><div class="oletter">B</div>8</div><div class="opt" data-letter="C"><div class="oletter">C</div>12</div><div class="opt" data-letter="D"><div class="oletter">D</div>15</div></div><div class="qfoot"><button class="sbtn" id="sb8" onclick="toggleSol(8)">Show Solution</button><span class="qfi" id="f8"></span></div><div class="solbox" id="s8"><div class="stitle">✓ Answer: C — 12</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>5 × ? = 20 → multiply by 4.</div></div><div class="sstep"><div class="sdot">2</div><div>Same factor on top: 3 × 4 = 12. So 3/5 = 12/20. ✓</div></div><div class="sstep"><div class="sdot">3</div><div>Check: 12÷4=3 and 20÷4=5. ✓</div></div></div></div></div>
+
+</div><!-- /sec 1 -->
+<div class="divider">— Page 2 of 4 —</div>
+
+<!-- ══ SECTION 2 ══════════════════════════════════ -->
+<div class="sec">
+<div class="sech"><div class="secn">2</div><div><div class="sect">Unit Fractions &amp; Operations</div><div class="secd">Decomposing fractions · Adding &amp; subtracting with like denominators · Mixed numbers</div></div><div class="secb">⚡ Your Focus Area</div></div>
+
+<div class="qcard" id="qc9" data-correct="C"><div class="qbody"><div class="qrow"><div class="qnum">9</div><div class="qtxt">Which shows <span class="fr"><span class="n">3</span><span class="d">8</span></span> broken apart using unit fractions?</div></div></div><div class="opts" data-q="9"><div class="opt" data-letter="A"><div class="oletter">A</div>1/8 + 1/8</div><div class="opt" data-letter="B"><div class="oletter">B</div>1/3 + 1/3 + 1/3</div><div class="opt" data-letter="C"><div class="oletter">C</div>1/8 + 1/8 + 1/8</div><div class="opt" data-letter="D"><div class="oletter">D</div>3/8 + 3/8 + 3/8</div></div><div class="qfoot"><button class="sbtn" id="sb9" onclick="toggleSol(9)">Show Solution</button><span class="qfi" id="f9"></span></div><div class="solbox" id="s9"><div class="stitle">✓ Answer: C — 1/8 + 1/8 + 1/8</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>A unit fraction has 1 as the numerator (1/8, 1/4, etc.).</div></div><div class="sstep"><div class="sdot">2</div><div>3/8 = 3 copies of 1/8 → 1/8+1/8+1/8 = 3/8. ✓</div></div><div class="sstep"><div class="sdot">3</div><div>The numerator tells you how many unit fractions to add.</div></div></div></div></div>
+
+<div class="qcard" id="qc10" data-correct="B"><div class="qbody"><div class="qrow"><div class="qnum">10</div><div class="qtxt">What is <span class="fr"><span class="n">1</span><span class="d">4</span></span> + <span class="fr"><span class="n">2</span><span class="d">4</span></span> ?</div></div></div><div class="opts" data-q="10"><div class="opt" data-letter="A"><div class="oletter">A</div>3/8</div><div class="opt" data-letter="B"><div class="oletter">B</div>3/4</div><div class="opt" data-letter="C"><div class="oletter">C</div>1/2</div><div class="opt" data-letter="D"><div class="oletter">D</div>2/4</div></div><div class="qfoot"><button class="sbtn" id="sb10" onclick="toggleSol(10)">Show Solution</button><span class="qfi" id="f10"></span></div><div class="solbox" id="s10"><div class="stitle">✓ Answer: B — 3/4</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>Same denominators → just add numerators: 1+2=3.</div></div><div class="sstep"><div class="sdot">2</div><div>Keep the denominator: 3/4. ✓</div></div><div class="sstep"><div class="sdot">3</div><div>Never add denominators! 1/4+2/4 ≠ 3/8.</div></div></div></div></div>
+
+<div class="qcard" id="qc11" data-correct="C"><div class="qbody"><div class="qrow"><div class="qnum">11</div><div class="qtxt"><div class="wbox"><div class="wlbl">🌟 Word Problem</div>A recipe needs <span class="fr"><span class="n">5</span><span class="d">8</span></span> cup of sugar. Tomás already added <span class="fr"><span class="n">2</span><span class="d">8</span></span> cup. How much more does he need?</div></div></div></div><div class="opts" data-q="11"><div class="opt" data-letter="A"><div class="oletter">A</div>7/8 cup</div><div class="opt" data-letter="B"><div class="oletter">B</div>2/8 cup</div><div class="opt" data-letter="C"><div class="oletter">C</div>3/8 cup</div><div class="opt" data-letter="D"><div class="oletter">D</div>1/2 cup</div></div><div class="qfoot"><button class="sbtn" id="sb11" onclick="toggleSol(11)">Show Solution</button><span class="qfi" id="f11"></span></div><div class="solbox" id="s11"><div class="stitle">✓ Answer: C — 3/8 cup</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>Needed − added = still needed.</div></div><div class="sstep"><div class="sdot">2</div><div>5/8 − 2/8 = 3/8. ✓</div></div><div class="sstep"><div class="sdot">3</div><div>Check: 2/8 + 3/8 = 5/8. ✓</div></div></div></div></div>
+
+<div class="qcard" id="qc12" data-correct="A"><div class="qbody"><div class="qrow"><div class="qnum">12</div><div class="qtxt">Which expression equals <span class="fr"><span class="n">5</span><span class="d">6</span></span>?</div></div></div><div class="opts" data-q="12"><div class="opt" data-letter="A"><div class="oletter">A</div>2/6 + 3/6</div><div class="opt" data-letter="B"><div class="oletter">B</div>1/6 + 1/6</div><div class="opt" data-letter="C"><div class="oletter">C</div>4/6 + 2/6</div><div class="opt" data-letter="D"><div class="oletter">D</div>3/6 + 3/6</div></div><div class="qfoot"><button class="sbtn" id="sb12" onclick="toggleSol(12)">Show Solution</button><span class="qfi" id="f12"></span></div><div class="solbox" id="s12"><div class="stitle">✓ Answer: A — 2/6 + 3/6</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>2/6+3/6 = 5/6. ✓</div></div><div class="sstep"><div class="sdot">2</div><div>B→2/6. C→6/6=1. D→6/6=1. None equal 5/6 except A.</div></div></div></div></div>
+
+<div class="qcard" id="qc13" data-correct="B"><div class="qbody"><div class="qrow"><div class="qnum">13</div><div class="qtxt"><div class="wbox"><div class="wlbl">🌟 Word Problem</div>Zara walked <span class="fr"><span class="n">3</span><span class="d">4</span></span> mile in the morning and <span class="fr"><span class="n">3</span><span class="d">4</span></span> mile in the afternoon. Total distance as a mixed number?</div></div></div></div><div class="opts" data-q="13"><div class="opt" data-letter="A"><div class="oletter">A</div>6/4 miles</div><div class="opt" data-letter="B"><div class="oletter">B</div>1 and 2/4 miles</div><div class="opt" data-letter="C"><div class="oletter">C</div>2 miles</div><div class="opt" data-letter="D"><div class="oletter">D</div>1 and 3/4 miles</div></div><div class="qfoot"><button class="sbtn" id="sb13" onclick="toggleSol(13)">Show Solution</button><span class="qfi" id="f13"></span></div><div class="solbox" id="s13"><div class="stitle">✓ Answer: B — 1 and 2/4 miles</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>3/4+3/4 = 6/4.</div></div><div class="sstep"><div class="sdot">2</div><div>6/4 = 4/4+2/4 = 1 whole + 2/4 = 1 and 2/4 miles. ✓</div></div><div class="sstep"><div class="sdot">3</div><div>2 miles = 8/4 (too much). D needs 7/4 (not what we got).</div></div></div></div></div>
+
+<div class="qcard" id="qc14" data-correct="C"><div class="qbody"><div class="qrow"><div class="qnum">14</div><div class="qtxt">How many unit fractions of <span class="fr"><span class="n">1</span><span class="d">5</span></span> do you need to make <span class="fr"><span class="n">4</span><span class="d">5</span></span>?</div></div></div><div class="opts" data-q="14"><div class="opt" data-letter="A"><div class="oletter">A</div>2</div><div class="opt" data-letter="B"><div class="oletter">B</div>3</div><div class="opt" data-letter="C"><div class="oletter">C</div>4</div><div class="opt" data-letter="D"><div class="oletter">D</div>5</div></div><div class="qfoot"><button class="sbtn" id="sb14" onclick="toggleSol(14)">Show Solution</button><span class="qfi" id="f14"></span></div><div class="solbox" id="s14"><div class="stitle">✓ Answer: C — 4</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>4/5 = 1/5+1/5+1/5+1/5 → 4 unit fractions. ✓</div></div><div class="sstep"><div class="sdot">2</div><div>The numerator tells you how many unit fractions to add.</div></div><div class="sstep"><div class="sdot">3</div><div>5 unit fractions = 5/5 = 1 whole — too many.</div></div></div></div></div>
+
+<div class="qcard" id="qc15" data-correct="C"><div class="qbody"><div class="qrow"><div class="qnum">15</div><div class="qtxt"><div class="wbox"><div class="wlbl">🌟 Word Problem</div>A tile board has 10 sections. Painted: <span class="fr"><span class="n">1</span><span class="d">10</span></span> blue, <span class="fr"><span class="n">3</span><span class="d">10</span></span> red, <span class="fr"><span class="n">2</span><span class="d">10</span></span> green. What fraction is UNPAINTED?</div></div></div></div><div class="opts" data-q="15"><div class="opt" data-letter="A"><div class="oletter">A</div>5/10</div><div class="opt" data-letter="B"><div class="oletter">B</div>6/10</div><div class="opt" data-letter="C"><div class="oletter">C</div>4/10</div><div class="opt" data-letter="D"><div class="oletter">D</div>7/10</div></div><div class="qfoot"><button class="sbtn" id="sb15" onclick="toggleSol(15)">Show Solution</button><span class="qfi" id="f15"></span></div><div class="solbox" id="s15"><div class="stitle">✓ Answer: C — 4/10</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>Total painted: 1/10+3/10+2/10 = 6/10.</div></div><div class="sstep"><div class="sdot">2</div><div>Unpainted: 10/10−6/10 = 4/10. ✓</div></div><div class="sstep"><div class="sdot">3</div><div>Check: 6/10+4/10 = 10/10 = 1 whole board. ✓</div></div></div></div></div>
+
+<div class="qcard" id="qc16" data-correct="B"><div class="qbody"><div class="qrow"><div class="qnum">16</div><div class="qtxt">Which statement about <span class="fr"><span class="n">2</span><span class="d">3</span></span> is TRUE?</div></div></div><div class="opts" data-q="16"><div class="opt" data-letter="A"><div class="oletter">A</div>It equals 1/3 + 1/3 + 1/3</div><div class="opt" data-letter="B"><div class="oletter">B</div>It equals 1/3 + 1/3</div><div class="opt" data-letter="C"><div class="oletter">C</div>It is greater than 1 whole</div><div class="opt" data-letter="D"><div class="oletter">D</div>It equals 2 whole parts</div></div><div class="qfoot"><button class="sbtn" id="sb16" onclick="toggleSol(16)">Show Solution</button><span class="qfi" id="f16"></span></div><div class="solbox" id="s16"><div class="stitle">✓ Answer: B — It equals 1/3 + 1/3</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>2/3 = 2 copies of 1/3 → 1/3+1/3. ✓</div></div><div class="sstep"><div class="sdot">2</div><div>A: 1/3+1/3+1/3 = 3/3 = 1 whole, not 2/3.</div></div><div class="sstep"><div class="sdot">3</div><div>C: 2/3 &lt; 1 because numerator (2) &lt; denominator (3).</div></div></div></div></div>
+
+</div><!-- /sec 2 -->
+<div class="divider">— Page 3 of 4 —</div>
+
+<!-- ══ SECTION 3 ══════════════════════════════════ -->
+<div class="sec">
+<div class="sech"><div class="secn">3</div><div><div class="sect">Decimal Notation &amp; Fractions</div><div class="secd">Converting fractions ↔ decimals · Tenths &amp; hundredths · Comparing decimal fractions</div></div><div class="secb">⚡ Your Focus Area</div></div>
+
+<div class="qcard" id="qc17" data-correct="B"><div class="qbody"><div class="qrow"><div class="qnum">17</div><div class="qtxt">Which decimal equals <span class="fr"><span class="n">7</span><span class="d">10</span></span>?</div></div></div><div class="opts" data-q="17"><div class="opt" data-letter="A"><div class="oletter">A</div>7.0</div><div class="opt" data-letter="B"><div class="oletter">B</div>0.7</div><div class="opt" data-letter="C"><div class="oletter">C</div>0.07</div><div class="opt" data-letter="D"><div class="oletter">D</div>70.0</div></div><div class="qfoot"><button class="sbtn" id="sb17" onclick="toggleSol(17)">Show Solution</button><span class="qfi" id="f17"></span></div><div class="solbox" id="s17"><div class="stitle">✓ Answer: B — 0.7</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>Denominator 10 → one decimal place. 7/10 = 0.7. ✓</div></div><div class="sstep"><div class="sdot">2</div><div>The 7 is in the TENTHS place (first spot after decimal).</div></div><div class="sstep"><div class="sdot">3</div><div>0.07 = 7/100. 7.0 = 7 wholes. Both wrong.</div></div></div></div></div>
+
+<div class="qcard" id="qc18" data-correct="C"><div class="qbody"><div class="qrow"><div class="qnum">18</div><div class="qtxt">Which fraction equals 0.45?</div></div></div><div class="opts" data-q="18"><div class="opt" data-letter="A"><div class="oletter">A</div>45/10</div><div class="opt" data-letter="B"><div class="oletter">B</div>4/5</div><div class="opt" data-letter="C"><div class="oletter">C</div>45/100</div><div class="opt" data-letter="D"><div class="oletter">D</div>4/10</div></div><div class="qfoot"><button class="sbtn" id="sb18" onclick="toggleSol(18)">Show Solution</button><span class="qfi" id="f18"></span></div><div class="solbox" id="s18"><div class="stitle">✓ Answer: C — 45/100</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>0.45 has TWO decimal places → hundredths. 0.45 = 45/100. ✓</div></div><div class="sstep"><div class="sdot">2</div><div>45/10=4.5 (too big). 4/10=0.4 (different). 4/5=0.80≠0.45.</div></div><div class="sstep"><div class="sdot">3</div><div>Tip: count decimal places → zeros in denominator. 2 places = /100.</div></div></div></div></div>
+
+<div class="qcard" id="qc19" data-correct="B"><div class="qbody"><div class="qrow"><div class="qnum">19</div><div class="qtxt"><div class="wbox"><div class="wlbl">🌟 Word Problem</div>Mia's caterpillar is <span class="fr"><span class="n">3</span><span class="d">10</span></span> cm long. Her friend's is 0.5 cm. Whose caterpillar is longer?</div></div></div></div><div class="opts" data-q="19"><div class="opt" data-letter="A"><div class="oletter">A</div>Mia's is longer</div><div class="opt" data-letter="B"><div class="oletter">B</div>Her friend's is longer</div><div class="opt" data-letter="C"><div class="oletter">C</div>They are the same length</div><div class="opt" data-letter="D"><div class="oletter">D</div>Cannot be compared</div></div><div class="qfoot"><button class="sbtn" id="sb19" onclick="toggleSol(19)">Show Solution</button><span class="qfi" id="f19"></span></div><div class="solbox" id="s19"><div class="stitle">✓ Answer: B — Her friend's is longer</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>Convert: 3/10 = 0.3 cm.</div></div><div class="sstep"><div class="sdot">2</div><div>0.5 &gt; 0.3 → friend's caterpillar is longer. ✓</div></div><div class="sstep"><div class="sdot">3</div><div>0.3 = 3 tenths; 0.5 = 5 tenths. 5 &gt; 3.</div></div></div></div></div>
+
+<div class="qcard" id="qc20" data-correct="C"><div class="qbody"><div class="qrow"><div class="qnum">20</div><div class="qtxt">Which is another way to write 0.6?</div></div></div><div class="opts" data-q="20"><div class="opt" data-letter="A"><div class="oletter">A</div>6/100</div><div class="opt" data-letter="B"><div class="oletter">B</div>60/10</div><div class="opt" data-letter="C"><div class="oletter">C</div>6/10</div><div class="opt" data-letter="D"><div class="oletter">D</div>6 ones</div></div><div class="qfoot"><button class="sbtn" id="sb20" onclick="toggleSol(20)">Show Solution</button><span class="qfi" id="f20"></span></div><div class="solbox" id="s20"><div class="stitle">✓ Answer: C — 6/10</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>0.6 = 6 tenths = 6/10. ✓</div></div><div class="sstep"><div class="sdot">2</div><div>6/100 = 0.06 (hundredths — much smaller).</div></div><div class="sstep"><div class="sdot">3</div><div>60/10 = 6.0 and "6 ones" = 6.0 — both far too large.</div></div></div></div></div>
+
+<div class="qcard" id="qc21" data-correct="A"><div class="qbody"><div class="qrow"><div class="qnum">21</div><div class="qtxt">Which set is ordered GREATEST to LEAST?</div></div></div><div class="opts" data-q="21"><div class="opt" data-letter="A"><div class="oletter">A</div>0.9, &ensp;7/10, &ensp;0.5, &ensp;3/10</div><div class="opt" data-letter="B"><div class="oletter">B</div>3/10, &ensp;0.5, &ensp;7/10, &ensp;0.9</div><div class="opt" data-letter="C"><div class="oletter">C</div>0.5, &ensp;0.9, &ensp;3/10, &ensp;7/10</div><div class="opt" data-letter="D"><div class="oletter">D</div>7/10, &ensp;0.9, &ensp;3/10, &ensp;0.5</div></div><div class="qfoot"><button class="sbtn" id="sb21" onclick="toggleSol(21)">Show Solution</button><span class="qfi" id="f21"></span></div><div class="solbox" id="s21"><div class="stitle">✓ Answer: A — 0.9, 7/10, 0.5, 3/10</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>Convert: 7/10=0.7, 3/10=0.3.</div></div><div class="sstep"><div class="sdot">2</div><div>Greatest→least: 0.9&gt;0.7&gt;0.5&gt;0.3. ✓</div></div><div class="sstep"><div class="sdot">3</div><div>B is least→greatest (the reverse).</div></div></div></div></div>
+
+<div class="qcard" id="qc22" data-correct="B"><div class="qbody"><div class="qrow"><div class="qnum">22</div><div class="qtxt"><div class="wbox"><div class="wlbl">🌟 Word Problem</div>A juice box holds <span class="fr"><span class="n">25</span><span class="d">100</span></span> liter. A water bottle holds 0.4 liters. Which holds MORE?</div></div></div></div><div class="opts" data-q="22"><div class="opt" data-letter="A"><div class="oletter">A</div>The juice box</div><div class="opt" data-letter="B"><div class="oletter">B</div>The water bottle</div><div class="opt" data-letter="C"><div class="oletter">C</div>They hold the same</div><div class="opt" data-letter="D"><div class="oletter">D</div>Cannot be compared</div></div><div class="qfoot"><button class="sbtn" id="sb22" onclick="toggleSol(22)">Show Solution</button><span class="qfi" id="f22"></span></div><div class="solbox" id="s22"><div class="stitle">✓ Answer: B — The water bottle</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>25/100 = 0.25 liters.</div></div><div class="sstep"><div class="sdot">2</div><div>0.40 &gt; 0.25 → water bottle holds more. ✓</div></div><div class="sstep"><div class="sdot">3</div><div>Tenths: 0.25 has 2 tenths; 0.40 has 4 tenths. 4&gt;2.</div></div></div></div></div>
+
+<div class="qcard" id="qc23" data-correct="C"><div class="qbody"><div class="qrow"><div class="qnum">23</div><div class="qtxt">On a number line from 0 to 1, which decimal is at the same point as <span class="fr"><span class="n">3</span><span class="d">4</span></span>?</div></div></div><div class="opts" data-q="23"><div class="opt" data-letter="A"><div class="oletter">A</div>0.25</div><div class="opt" data-letter="B"><div class="oletter">B</div>0.50</div><div class="opt" data-letter="C"><div class="oletter">C</div>0.75</div><div class="opt" data-letter="D"><div class="oletter">D</div>0.30</div></div><div class="qfoot"><button class="sbtn" id="sb23" onclick="toggleSol(23)">Show Solution</button><span class="qfi" id="f23"></span></div><div class="solbox" id="s23"><div class="stitle">✓ Answer: C — 0.75</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>3/4 × 25/25 = 75/100 = 0.75. ✓</div></div><div class="sstep"><div class="sdot">2</div><div>Money shortcut: 3 quarters = $0.75 of a dollar.</div></div><div class="sstep"><div class="sdot">3</div><div>Memorize: 1/4=0.25, 1/2=0.50, 3/4=0.75.</div></div></div></div></div>
+
+<div class="qcard" id="qc24" data-correct="C"><div class="qbody"><div class="qrow"><div class="qnum">24</div><div class="qtxt">Which decimal is BETWEEN <span class="fr"><span class="n">4</span><span class="d">10</span></span> and <span class="fr"><span class="n">6</span><span class="d">10</span></span> on a number line?</div></div></div><div class="opts" data-q="24"><div class="opt" data-letter="A"><div class="oletter">A</div>0.3</div><div class="opt" data-letter="B"><div class="oletter">B</div>0.7</div><div class="opt" data-letter="C"><div class="oletter">C</div>0.5</div><div class="opt" data-letter="D"><div class="oletter">D</div>0.8</div></div><div class="qfoot"><button class="sbtn" id="sb24" onclick="toggleSol(24)">Show Solution</button><span class="qfi" id="f24"></span></div><div class="solbox" id="s24"><div class="stitle">✓ Answer: C — 0.5</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>4/10=0.4 and 6/10=0.6.</div></div><div class="sstep"><div class="sdot">2</div><div>0.4 &lt; 0.5 &lt; 0.6. ✓</div></div><div class="sstep"><div class="sdot">3</div><div>0.3 is too small; 0.7 and 0.8 are too large.</div></div></div></div></div>
+
+</div><!-- /sec 3 -->
+<div class="divider">— Page 4 of 4 —</div>
+
+<!-- ══ SECTION 4 ══════════════════════════════════ -->
+<div class="sec">
+<div class="sech"><div class="secn">4</div><div><div class="sect">Mixed Challenge Round</div><div class="secd">Multi-step reasoning · All three concepts combined · Hardest ERB-style questions</div></div><div class="secb">🔥 ERB Reasoning Level</div></div>
+
+<div class="qcard" id="qc25" data-correct="C"><div class="qbody"><div class="qrow"><div class="qnum">25</div><div class="qtxt"><div class="wbox"><div class="wlbl">🔵 Multi-Step</div>A garden is <span class="fr"><span class="n">8</span><span class="d">10</span></span> vegetables. Of those, <span class="fr"><span class="n">3</span><span class="d">10</span></span> of the whole garden are tomatoes; the rest are carrots. What decimal shows the carrot fraction of the whole garden?</div></div></div></div><div class="opts" data-q="25"><div class="opt" data-letter="A"><div class="oletter">A</div>0.3</div><div class="opt" data-letter="B"><div class="oletter">B</div>0.8</div><div class="opt" data-letter="C"><div class="oletter">C</div>0.5</div><div class="opt" data-letter="D"><div class="oletter">D</div>0.11</div></div><div class="qfoot"><button class="sbtn" id="sb25" onclick="toggleSol(25)">Show Solution</button><span class="qfi" id="f25"></span></div><div class="solbox" id="s25"><div class="stitle">✓ Answer: C — 0.5</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>Vegetables=8/10, Tomatoes=3/10.</div></div><div class="sstep"><div class="sdot">2</div><div>Carrots: 8/10−3/10=5/10.</div></div><div class="sstep"><div class="sdot">3</div><div>5/10 = 0.5. ✓</div></div></div></div></div>
+
+<div class="qcard" id="qc26" data-correct="B"><div class="qbody"><div class="qrow"><div class="qnum">26</div><div class="qtxt">Which statement is TRUE?</div></div></div><div class="opts" data-q="26"><div class="opt" data-letter="A"><div class="oletter">A</div>0.60 &gt; 6/10</div><div class="opt" data-letter="B"><div class="oletter">B</div>25/100 = 0.25</div><div class="opt" data-letter="C"><div class="oletter">C</div>1/4 &gt; 1/2</div><div class="opt" data-letter="D"><div class="oletter">D</div>3/10 = 0.03</div></div><div class="qfoot"><button class="sbtn" id="sb26" onclick="toggleSol(26)">Show Solution</button><span class="qfi" id="f26"></span></div><div class="solbox" id="s26"><div class="stitle">✓ Answer: B — 25/100 = 0.25</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>25/100 = 0.25. ✓</div></div><div class="sstep"><div class="sdot">2</div><div>A: 0.60=6/10 — they're EQUAL, not &gt;. False.</div></div><div class="sstep"><div class="sdot">3</div><div>C: 1/4=0.25 &lt; 1/2=0.50. False. &nbsp;D: 3/10=0.3≠0.03. False.</div></div></div></div></div>
+
+<div class="qcard" id="qc27" data-correct="B"><div class="qbody"><div class="qrow"><div class="qnum">27</div><div class="qtxt"><div class="wbox"><div class="wlbl">🔴 Reasoning</div>Kenji says: "<span class="fr"><span class="n">4</span><span class="d">8</span></span> &gt; <span class="fr"><span class="n">1</span><span class="d">2</span></span> because 4&gt;1 and 8&gt;2." Is Kenji correct?</div></div></div></div><div class="opts" data-q="27"><div class="opt" data-letter="A"><div class="oletter">A</div>Yes — bigger numbers mean a bigger fraction</div><div class="opt" data-letter="B"><div class="oletter">B</div>No — 4/8 = 1/2, they are equal</div><div class="opt" data-letter="C"><div class="oletter">C</div>No — 4/8 &lt; 1/2</div><div class="opt" data-letter="D"><div class="oletter">D</div>Yes, but only when denominators differ</div></div><div class="qfoot"><button class="sbtn" id="sb27" onclick="toggleSol(27)">Show Solution</button><span class="qfi" id="f27"></span></div><div class="solbox" id="s27"><div class="stitle">✓ Answer: B — No, 4/8 = 1/2</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>4/8 ÷ 4/4 = 1/2. They are equal. ✓</div></div><div class="sstep"><div class="sdot">2</div><div>You CANNOT compare fractions by just looking at individual numbers — the relationship between top and bottom matters.</div></div><div class="sstep"><div class="sdot">3</div><div>Always simplify or find a common denominator first!</div></div></div></div></div>
+
+<div class="qcard" id="qc28" data-correct="C"><div class="qbody"><div class="qrow"><div class="qnum">28</div><div class="qtxt"><div class="wbox"><div class="wlbl">🔵 Multi-Step</div>A shelf has 100 books. <span class="fr"><span class="n">30</span><span class="d">100</span></span> are science and 0.25 are history. What decimal represents the books that are NEITHER?</div></div></div></div><div class="opts" data-q="28"><div class="opt" data-letter="A"><div class="oletter">A</div>0.55</div><div class="opt" data-letter="B"><div class="oletter">B</div>0.30</div><div class="opt" data-letter="C"><div class="oletter">C</div>0.45</div><div class="opt" data-letter="D"><div class="oletter">D</div>0.75</div></div><div class="qfoot"><button class="sbtn" id="sb28" onclick="toggleSol(28)">Show Solution</button><span class="qfi" id="f28"></span></div><div class="solbox" id="s28"><div class="stitle">✓ Answer: C — 0.45</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>Science: 30/100=0.30. History: 0.25.</div></div><div class="sstep"><div class="sdot">2</div><div>Together: 0.30+0.25=0.55.</div></div><div class="sstep"><div class="sdot">3</div><div>Neither: 1.00−0.55=0.45. ✓ &nbsp;Check: 0.55+0.45=1.00. ✓</div></div></div></div></div>
+
+<div class="qcard" id="qc29" data-correct="D"><div class="qbody"><div class="qrow"><div class="qnum">29</div><div class="qtxt">Which fraction is closest to 1 whole?</div></div></div><div class="opts" data-q="29"><div class="opt" data-letter="A"><div class="oletter">A</div>2/8</div><div class="opt" data-letter="B"><div class="oletter">B</div>1/3</div><div class="opt" data-letter="C"><div class="oletter">C</div>4/6</div><div class="opt" data-letter="D"><div class="oletter">D</div>7/8</div></div><div class="qfoot"><button class="sbtn" id="sb29" onclick="toggleSol(29)">Show Solution</button><span class="qfi" id="f29"></span></div><div class="solbox" id="s29"><div class="stitle">✓ Answer: D — 7/8</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>Distance from 1: 2/8→6/8 away. 1/3→2/3 away. 4/6→2/6 away. 7/8→only 1/8 away.</div></div><div class="sstep"><div class="sdot">2</div><div>1/8 is the smallest gap → 7/8 is closest. ✓</div></div><div class="sstep"><div class="sdot">3</div><div>Shortcut: when numerator is 1 less than denominator, the fraction is very close to 1.</div></div></div></div></div>
+
+<div class="qcard" id="qc30" data-correct="B"><div class="qbody"><div class="qrow"><div class="qnum">30</div><div class="qtxt"><div class="wbox"><div class="wlbl">🔴 Reasoning</div>Sam says 0.4 &gt; 0.40 because "0.4 has fewer digits." Is Sam correct?</div></div></div></div><div class="opts" data-q="30"><div class="opt" data-letter="A"><div class="oletter">A</div>Yes — fewer digits means smaller</div><div class="opt" data-letter="B"><div class="oletter">B</div>No — 0.4 and 0.40 are exactly equal</div><div class="opt" data-letter="C"><div class="oletter">C</div>No — 0.40 is greater because it has more digits</div><div class="opt" data-letter="D"><div class="oletter">D</div>Cannot be determined without a number line</div></div><div class="qfoot"><button class="sbtn" id="sb30" onclick="toggleSol(30)">Show Solution</button><span class="qfi" id="f30"></span></div><div class="solbox" id="s30"><div class="stitle">✓ Answer: B — No, 0.4 = 0.40 exactly</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>0.4=4/10. 0.40=40/100=4/10. Equal. ✓</div></div><div class="sstep"><div class="sdot">2</div><div>Trailing zeros after the decimal do NOT change the value.</div></div><div class="sstep"><div class="sdot">3</div><div>$0.40 and $0.4 are both 40 cents — same amount!</div></div></div></div></div>
+
+<div class="qcard" id="qc31" data-correct="C"><div class="qbody"><div class="qrow"><div class="qnum">31</div><div class="qtxt"><div class="wbox"><div class="wlbl">🔵 Multi-Step</div>Lily ran <span class="fr"><span class="n">2</span><span class="d">5</span></span> mile on Monday and 0.5 miles on Tuesday. How far total? Give as a decimal.</div></div></div></div><div class="opts" data-q="31"><div class="opt" data-letter="A"><div class="oletter">A</div>0.7 miles</div><div class="opt" data-letter="B"><div class="oletter">B</div>0.2 miles</div><div class="opt" data-letter="C"><div class="oletter">C</div>0.9 miles</div><div class="opt" data-letter="D"><div class="oletter">D</div>1.0 miles</div></div><div class="qfoot"><button class="sbtn" id="sb31" onclick="toggleSol(31)">Show Solution</button><span class="qfi" id="f31"></span></div><div class="solbox" id="s31"><div class="stitle">✓ Answer: C — 0.9 miles</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>Convert 2/5: 2/5 × 2/2 = 4/10 = 0.4.</div></div><div class="sstep"><div class="sdot">2</div><div>0.4 + 0.5 = 0.9 miles. ✓</div></div><div class="sstep"><div class="sdot">3</div><div>Always convert fractions to decimals FIRST before adding.</div></div></div></div></div>
+
+<div class="qcard" id="qc32" data-correct="D"><div class="qbody"><div class="qrow"><div class="qnum">32</div><div class="qtxt"><div class="wbox"><div class="wlbl">⭐ Hardest — ERB Reasoning</div>Number line 0 to 1. Point A = <span class="fr"><span class="n">3</span><span class="d">5</span></span>, Point B = 0.55, Point C = <span class="fr"><span class="n">11</span><span class="d">20</span></span>. Which statement is TRUE?</div></div></div></div><div class="opts" data-q="32"><div class="opt" data-letter="A"><div class="oletter">A</div>A &gt; B &gt; C</div><div class="opt" data-letter="B"><div class="oletter">B</div>C &gt; A &gt; B</div><div class="opt" data-letter="C"><div class="oletter">C</div>A &gt; C &gt; B</div><div class="opt" data-letter="D"><div class="oletter">D</div>A &gt; B = C</div></div><div class="qfoot"><button class="sbtn" id="sb32" onclick="toggleSol(32)">Show Solution</button><span class="qfi" id="f32"></span></div><div class="solbox" id="s32"><div class="stitle">✓ Answer: D — A &gt; B = C</div><div class="ssteps"><div class="sstep"><div class="sdot">1</div><div>A: 3/5 × 2/2 = 6/10 = 0.60. &nbsp;B: 0.55.</div></div><div class="sstep"><div class="sdot">2</div><div>C: 11/20 × 5/5 = 55/100 = 0.55. B = C!</div></div><div class="sstep"><div class="sdot">3</div><div>0.60 &gt; 0.55 = 0.55 → A &gt; B = C. ✓</div></div></div></div></div>
+
+</div><!-- /sec 4 -->
+
+<div class="ftr"><strong>🌟 You finished, Seraphina!</strong><br>
+Review every solution for any question you missed. Focus especially on <strong style="color:#bbf7d0">converting fractions ↔ decimals</strong> and <strong style="color:#bbf7d0">finding equivalent fractions</strong> — these appear on nearly every ERB question. Take your time, read carefully, and you've got this! 💚</div>
+
+</div><!-- /main -->
+
+<script>
+// ─── STATE ────────────────────────────────────────
+var TOTAL = 32;
+var chosen = {};      // { q: letter }
+var done   = false;   // true after submit (secondary guard)
+
+// ─── INIT: event delegation on every .opts ───────
+// NOTE: <script> is at bottom of <body> so DOM is fully built.
+// Do NOT use DOMContentLoaded — in iframe renderers it has already
+// fired before the script runs, so the callback would never execute.
+(function setupClicks() {
+  document.querySelectorAll('.opts').forEach(function (container) {
+    var q = parseInt(container.getAttribute('data-q'), 10);
+    container.addEventListener('click', function (e) {
+      if (done) return;
+      var opt = e.target.closest('.opt');
+      if (!opt || opt.classList.contains('locked')) return;
+      var letter = opt.getAttribute('data-letter');
+      if (!letter) return;
+      pick(q, letter, container);
+    });
+  });
+}());
+
+// ─── PICK ─────────────────────────────────────────
+function pick(q, letter, container) {
+  chosen[q] = letter;
+  container.querySelectorAll('.opt').forEach(function (el) { el.classList.remove('sel'); });
+  var el = container.querySelector('[data-letter="' + letter + '"]');
+  if (el) el.classList.add('sel');
+  var n = Object.keys(chosen).length;
+  document.getElementById('ctr').textContent = n + ' of ' + TOTAL + ' answered';
+}
+
+// ─── SOLUTION TOGGLE ──────────────────────────────
+function toggleSol(q) {
+  var box = document.getElementById('s'  + q);
+  var btn = document.getElementById('sb' + q);
+  var opening = !box.classList.contains('on');
+  box.classList.toggle('on');
+  btn.textContent = opening ? 'Hide Solution' : 'Show Solution';
+}
+function showAll() {
+  for (var q = 1; q <= TOTAL; q++) {
+    document.getElementById('s'  + q).classList.add('on');
+    document.getElementById('sb' + q).textContent = 'Hide Solution';
+  }
+}
+function hideAll() {
+  for (var q = 1; q <= TOTAL; q++) {
+    document.getElementById('s'  + q).classList.remove('on');
+    document.getElementById('sb' + q).textContent = 'Show Solution';
+  }
+}
+
+// ─── SUBMIT ───────────────────────────────────────
+function submitExam() {
+  done = true;
+  var secR = {1:0,2:0,3:0,4:0};
+  var secA = {1:0,2:0,3:0,4:0};
+  var right = 0, answered = 0;
+
+  for (var q = 1; q <= TOTAL; q++) {
+    var sec  = q<=8?1:q<=16?2:q<=24?3:4;
+    var card = document.getElementById('qc' + q);
+    var cor  = card.getAttribute('data-correct');
+    var fi   = document.getElementById('f' + q);
+    var con  = document.querySelector('.opts[data-q="' + q + '"]');
+
+    // Lock all options (CSS pointer-events:none via .locked class)
+    con.querySelectorAll('.opt').forEach(function (el) {
+      el.classList.remove('sel');
+      el.classList.add('locked');
+      if (el.getAttribute('data-letter') === cor) el.classList.add('rev-ok');
+    });
+
+    if (chosen[q]) {
+      answered++;
+      secA[sec]++;
+      if (chosen[q] === cor) {
+        right++;
+        secR[sec]++;
+        fi.textContent = '✅';
+        card.classList.add('qok');
+        // Re-highlight correct choice
+        var okEl = con.querySelector('[data-letter="' + chosen[q] + '"]');
+        if (okEl) okEl.classList.add('rev-ok');
+      } else {
+        fi.textContent = '❌';
+        card.classList.add('qbad');
+        var badEl = con.querySelector('[data-letter="' + chosen[q] + '"]');
+        if (badEl) badEl.classList.add('rev-bad');
+        // Auto-open solution for wrong answers
+        document.getElementById('s'  + q).classList.add('on');
+        document.getElementById('sb' + q).textContent = 'Hide Solution';
+      }
+    }
+  }
+
+  var pct = answered ? Math.round(right / answered * 100) : 0;
+  document.getElementById('spN').textContent = right;
+  document.getElementById('spD').textContent = 'out of ' + answered + ' (' + pct + '%)';
+  document.getElementById('spM').textContent =
+    pct>=90 ? '🌟 Outstanding! You are ERB-ready!' :
+    pct>=75 ? '🎉 Great work! A little more practice and you will shine!' :
+    pct>=60 ? '📚 Good effort — review the solutions and try again.' :
+              '💪 Keep going — every expert started as a beginner!';
+  for (var s=1;s<=4;s++)
+    document.getElementById('sc'+s).textContent = secA[s]?(secR[s]+' / '+secA[s]):'–';
+
+  var panel = document.getElementById('sp');
+  panel.classList.add('on');
+  panel.scrollIntoView({behavior:'smooth',block:'start'});
+  document.getElementById('ctr').textContent = right + ' correct · ' + answered + ' answered';
+}
+
+// ─── RESET ────────────────────────────────────────
+function resetExam() {
+  chosen = {};
+  done   = false;
+  for (var q = 1; q <= TOTAL; q++) {
+    document.getElementById('qc' + q).classList.remove('qok','qbad');
+    document.getElementById('f'  + q).textContent = '';
+    document.getElementById('s'  + q).classList.remove('on');
+    document.getElementById('sb' + q).textContent = 'Show Solution';
+    var con = document.querySelector('.opts[data-q="' + q + '"]');
+    con.querySelectorAll('.opt').forEach(function (el) {
+      el.classList.remove('sel','rev-ok','rev-bad','locked');
+    });
+  }
+  document.getElementById('sp').classList.remove('on');
+  document.getElementById('ctr').textContent = '0 of ' + TOTAL + ' answered';
+}
+</script>
+</body>
+</html>
